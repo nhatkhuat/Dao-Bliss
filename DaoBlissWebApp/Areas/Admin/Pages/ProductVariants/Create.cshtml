@@ -1,0 +1,70 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.ProductVariants.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProductVariant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label class="control-label">Product</label>
+                <select asp-for="ProductVariant.ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label class="control-label">Size</label>
+                <select asp-for="ProductVariant.SizeId" class ="form-control" asp-items="ViewBag.SizeId"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="ProductVariant.Price" class="control-label">Giá bán thực tế</label>
+                <input asp-for="ProductVariant.Price" class="form-control"  placeholder="199"/>
+                <span asp-validation-for="ProductVariant.Price" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductVariant.CompareAtPrice" class="control-label">Giá gốc(trước giảm giá)</label>
+                <input asp-for="ProductVariant.CompareAtPrice" class="form-control" placeholder="299"/>
+                <span asp-validation-for="ProductVariant.CompareAtPrice" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductVariant.Stock" class="control-label">Số lượng trong kho</label>
+                <input asp-for="ProductVariant.Stock" class="form-control" placeholder="50"/>
+                <span asp-validation-for="ProductVariant.Stock" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductVariant.Sku" class="control-label">Mã biến thể</label>
+                <input asp-for="ProductVariant.Sku" class="form-control" placeholder="TSHIRT-BLACK-M" />
+                <span asp-validation-for="ProductVariant.Sku" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Trọng lượng(gam)</label>
+                <input asp-for="ProductVariant.Weight" class="form-control" />
+                <span asp-validation-for="ProductVariant.Weight" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ProductVariant.IsActive" value="true"/> @Html.DisplayNameFor(model => model.ProductVariant.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

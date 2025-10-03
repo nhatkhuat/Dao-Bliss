@@ -8,7 +8,7 @@ namespace DaoBlissWebApp.Common.Entities
 		public int CategoryId { get; set; }
 
 		[Required, StringLength(255)]
-		public string ProductCategoryName { get; set; }
+		public string CategoryName { get; set; }
 
 		[MaxLength(255)]
 		public string Description { get; set; }

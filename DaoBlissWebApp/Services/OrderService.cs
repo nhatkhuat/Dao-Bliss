@@ -12,98 +12,87 @@ namespace DaoBlissWebApp.Services.OrderServices
 	public class OrderService : IOrderService
 	{
 		private readonly IOrderRepository _orderRepository;
-		private readonly IProductRepository _productRepository;
-		private readonly ICartService _cartService;
-		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IProductService _productService;
 		private readonly IEmailSender _emailSender;
-		public OrderService(IOrderRepository orderRepository, ICartService cartService, UserManager<ApplicationUser> userManager, IProductRepository productRepository, IEmailSender emailSender)
+		private readonly UserManager<ApplicationUser> _userManager;
+
+		public OrderService(IOrderRepository orderRepository, IProductService productService, IEmailSender emailSender, UserManager<ApplicationUser> userManager)
 		{
 			_orderRepository = orderRepository;
-			_cartService = cartService;
-			_userManager = userManager;
-			_productRepository = productRepository;
+			_productService = productService;
 			_emailSender = emailSender;
+			_userManager = userManager;
 		}
 
-		public async Task CreateOrderAsync(Order order, List<OrderItem> orderDetails, ApplicationUser user)
+		public async Task CreateOrderAsync(Order order, List<OrderItem> items)
 		{
-			//if (order == null) throw new ArgumentNullException(nameof(order));
-			//if (orderDetails == null || !orderDetails.Any()) throw new ArgumentException("Order details cannot be empty.", nameof(orderDetails));
-			//if (user == null) throw new ArgumentNullException(nameof(user));
+			// Validate stock
+			foreach (var item in items)
+			{
+				var variant = await _productService.GetProductVariantByIdAsync(item.ProductVariantId);
+				if (variant == null || variant.Stock < item.Quantity)
+				{
+					throw new InvalidOperationException($"Insufficient stock for variant {item.ProductVariantId}");
+				}
+			}
 
-			//foreach (var orderDetail in orderDetails)
-			//{
+			// Update stock
+			foreach (var item in items)
+			{
+				await _productService.UpdateVariantStockAsync(item.ProductVariantId, -item.Quantity);
+			}
 
-			//	ProductVariant productVariant = await _productRepository.GetProductVariantAsync(orderDetail.ProductVariantId.Value);
+			// Add order and items
+			await _orderRepository.AddOrderAsync(order);
+			foreach (var item in items)
+			{
+				item.OrderId = order.Id;
+				await _orderRepository.AddOrderItemAsync(item);
+			}
 
-			//	if (productVariant.Quantity < orderDetail.Quantity)
-			//	{
-			//		throw new InvalidOperationException($"Insufficient stock for ProductVariant ID {orderDetail.ProductVariantId.Value}. Available: {productVariant.Quantity}, Requested: {orderDetail.Quantity}");
-			//	}
+			await _orderRepository.SaveChangesAsync();
 
-			//	productVariant.Quantity -= orderDetail.Quantity;
-			//	await _productRepository.UpdateProductVariantAsync(productVariant);
-			//}
+			// Send emails
+			_ = Task.Run(async () =>
+			{
+				try
+				{
+					await _emailSender.SendEmailAsync(
+						"daobliss.official@gmail.com",
+						"Daobliss có đơn đặt hàng mới",
+						"Có đơn đặt hàng mới, hãy vào website để liên hệ xác nhận đơn hàng với khách.");
 
-			//// Đặt các giá trị mặc định
-			//order.CustomerId = user.Id;
-			//order.OrderedDate = DateTime.UtcNow;
-			//order.PaymentStatusId = 1; // Pending
-			//order.OrderStatusId = 1;   // Pending
-			//order.OrderCode =  "ORD" + Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper();
-
-			//// Lưu Order
-			//var createdOrder = await _orderRepository.CreateOrderAsync(order);
-
-			//// Gán OrderId cho OrderDetails
-			//foreach (var detail in orderDetails)
-			//{
-			//	detail.OrderId = createdOrder.OrderId;
-			//}
-
-			//// Lưu OrderDetails
-			//await _orderRepository.CreateOrderDetailsAsync(orderDetails);
-
-			//await _orderHubContext.Clients.All.SendAsync("ReceiveOrderNotification");
-			//// Xóa giỏ hàng sau khi đặt hàng thành công
-			////await _cartService.ClearCartAsync(user.Id);
-
-			//await _orderRepository.SaveChangesAsync();
-
-			//// Gửi email xác nhận đơn hàng
-			////string emailContent = GenerateOrderEmailHtml(createdOrder, orderDetails);
-			////await _emailSender.SendEmailAsync(order.User., $"Xác nhận đơn hàng #{createdOrder.OrderNumber}", emailContent);
-
+					var body = BuildOrderEmailBody(order);
+					await _emailSender.SendEmailAsync(
+						order.ShippingEmail,
+						$"Đặt hàng thành công #{order.OrderNumber}",
+						body);
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"[Email Error] {ex.Message}");
+				}
+			});
 		}
 
-		public async Task<UserAddress> GetDefaultCustomerAddressAsync(string userId)
+		public async Task<Order?> GetOrderByNumberAsync(string orderNumber)
 		{
-			return await _orderRepository.GetDefaultCustomerAddressAsync(userId);
+			return await _orderRepository.GetOrderByNumberAsync(orderNumber);
 		}
 
-		private string GenerateOrderEmailHtml(Order order, List<OrderItem> details)
+		private string BuildOrderEmailBody(Order order)
 		{
-			//var culture = new System.Globalization.CultureInfo("vi-VN");
-			//var sb = new StringBuilder();
+			var sb = new StringBuilder();
 
-			//sb.Append($@"
-			//     <h2>Xin chào {order.ShippingFullName},</h2>
-			//     <p>Cảm ơn bạn đã đặt hàng tại <strong>Clothes Shop</strong>!</p>
-			//     <p><strong>Mã đơn hàng:</strong> {order.OrderNumber}</p>
-			//     <p><strong>Ngày đặt:</strong> {order.CreatedAt.ToString("dd/MM/yyyy HH:mm")}</p>
-			//     <hr />
-			//     <h3>Chi tiết đơn hàng:</h3>
-			//     <table style='width:100%; border-collapse:collapse;' border='1' cellpadding='5'>
-			//         <thead>
-			//             <tr style='background:#f2f2f2;'>
-			//                 <th>Sản phẩm</th>
-			//                 <th>Giá</th>
-			//                 <th>Số lượng</th>
-			//                 <th>Thành tiền</th>
-			//             </tr>
-			//         </thead>
-			//         <tbody>");
+			sb.Append($@"
+    <div style='font-family: Arial, sans-serif; line-height:1.5;'>
+        <h2 style='color:#2c3e50;'>Daobliss - Đặt hàng thành công #{order.OrderNumber}</h2>
+        <p>Thân gửi anh/chị {order.ShippingFullName},</p>
+        <p>Cảm ơn anh/chị đã mua hàng tại <strong>Daobliss</strong>!</p>
+        <p><strong>Tình trạng: </strong>Chờ xác nhận</p>
+        <p><strong>Mã đơn hàng:</strong> {order.OrderNumber}</p>
 
+<<<<<<< HEAD
 			//foreach (var item in details)
 			//{
 			//	sb.Append($@"
@@ -114,30 +103,51 @@ namespace DaoBlissWebApp.Services.OrderServices
 			//                 <td>{item.TotalPrice.ToString("C0", culture)}</td>
 			//             </tr>");
 			//}
+=======
+        <h3>Thông tin sản phẩm:</h3>
+        <table style='width:100%; border-collapse: collapse;'>
+            <thead>
+                <tr style='background:#f2f2f2;'>
+                    <th style='border:1px solid #ddd; padding:8px;'>Tên sản phẩm</th>
+                    <th style='border:1px solid #ddd; padding:8px;'>Số lượng</th>
+                    <th style='border:1px solid #ddd; padding:8px;'>Đơn giá</th>
+                    <th style='border:1px solid #ddd; padding:8px;'>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>");
+>>>>>>> Nhat
 
-			//sb.Append($@"
-			//         </tbody>
-			//     </table>
-			//     <p><strong>Tổng tiền:</strong> {order.TotalPrice.ToString("C0", culture)}</p>
-			//     <p><strong>Thanh toán:</strong> {order.PaymentMethod?.PaymentMethodName ?? "COD"}</p>
-			//     <hr />
-			//     <h4>Thông tin nhận hàng:</h4>
-			//     <p>Người nhận: {order.ReceiverName}</p>
-			//     <p>SĐT: {order.Phone}</p>
-			//     <p>Email: {order.Email}</p>
-			//     <p>Địa chỉ: {order.Address}</p>
+			foreach (var item in order.Items)
+			{
+				sb.Append($@"
+            <tr>
+                <td style='border:1px solid #ddd; padding:8px;'>{item.Name} ({item.Size}{item.ProductVariant?.Size?.Unit})</td>
+                <td style='border:1px solid #ddd; padding:8px;'>{item.Quantity}</td>
+                <td style='border:1px solid #ddd; padding:8px;'>{item.Price:N0}đ</td>
+                <td style='border:1px solid #ddd; padding:8px;'>{item.Total:N0}đ</td>
+            </tr>");
+			}
 
-			//     <br />
-			//     <p>Chúng tôi sẽ liên hệ với bạn khi đơn hàng được xử lý.</p>
-			//     <p style='color:gray;'>Trạng thái hiện tại: <strong>{order.OrderStatus?.OrderStatusName ?? "Pending"}</strong></p>
-			//     <br />
-			//     <p>Trân trọng,</p>
-			//     <p><strong>Clothes Shop Team</strong></p>
-			// ");
+			sb.Append($@"
+            </tbody>
+        </table>
 
-			//return sb.ToString();
-			return null;
+        <p><strong>Tổng giá trị sản phẩm:</strong> {order.SubTotal:N0}đ</p>
+        <p><strong>Phí giao hàng:</strong> +{order.ShippingFee:N0}đ</p>
+        <p><strong>Khuyến mại:</strong> -{order.Discount:N0}đ</p>
+        <p><strong>Tổng thanh toán:</strong> {order.Total:N0}đ</p>
+        <p><strong>Hình thức thanh toán:</strong> {order.PaymentMethod}</p>
+
+        <h3>Thông tin nhận hàng:</h3>
+        <p>
+            Họ và tên: {order.ShippingFullName}<br/>
+            Số điện thoại: {order.ShippingPhoneNumber}<br/>
+            Địa chỉ: {order.ShippingAddress}, {order.ShippingWard}, {order.ShippingDistrict}, {order.ShippingCity}
+        </p>
+        <p><strong>Ghi chú:</strong> {order.Notes}</p>
+    </div>");
+
+			return sb.ToString();
 		}
-
 	}
 }

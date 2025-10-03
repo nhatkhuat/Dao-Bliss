@@ -1,0 +1,106 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.Coupons.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Coupon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+            <input type="hidden" asp-for="Coupon.Id" />
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.Code" class="control-label"></label>
+                <input asp-for="Coupon.Code" class="form-control" />
+                <span asp-validation-for="Coupon.Code" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.Name" class="control-label"></label>
+                <input asp-for="Coupon.Name" class="form-control" />
+                <span asp-validation-for="Coupon.Name" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.Description" class="control-label"></label>
+                <input asp-for="Coupon.Description" class="form-control" />
+                <span asp-validation-for="Coupon.Description" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.DiscountType" class="control-label"></label>
+                <input asp-for="Coupon.DiscountType" class="form-control" />
+                <span asp-validation-for="Coupon.DiscountType" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.DiscountValue" class="control-label"></label>
+                <input asp-for="Coupon.DiscountValue" class="form-control" />
+                <span asp-validation-for="Coupon.DiscountValue" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.MinOrderAmount" class="control-label"></label>
+                <input asp-for="Coupon.MinOrderAmount" class="form-control" />
+                <span asp-validation-for="Coupon.MinOrderAmount" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.MaxDiscountAmount" class="control-label"></label>
+                <input asp-for="Coupon.MaxDiscountAmount" class="form-control" />
+                <span asp-validation-for="Coupon.MaxDiscountAmount" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.UsageLimit" class="control-label"></label>
+                <input asp-for="Coupon.UsageLimit" class="form-control" />
+                <span asp-validation-for="Coupon.UsageLimit" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.UsedCount" class="control-label"></label>
+                <input asp-for="Coupon.UsedCount" class="form-control" />
+                <span asp-validation-for="Coupon.UsedCount" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.MinRankId" class="control-label"></label>
+                <select asp-for="Coupon.MinRankId" class="form-control" asp-items="ViewBag.MinRankId"></select>
+                <span asp-validation-for="Coupon.MinRankId" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.StartDate" class="control-label"></label>
+                <input asp-for="Coupon.StartDate" class="form-control" />
+                <span asp-validation-for="Coupon.StartDate" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Coupon.EndDate" class="control-label"></label>
+                <input asp-for="Coupon.EndDate" class="form-control" />
+                <span asp-validation-for="Coupon.EndDate" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Coupon.IsActive" /> @Html.DisplayNameFor(model => model.Coupon.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coupon.CreatedAt" class="control-label"></label>
+                <input asp-for="Coupon.CreatedAt" class="form-control" />
+                <span asp-validation-for="Coupon.CreatedAt" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

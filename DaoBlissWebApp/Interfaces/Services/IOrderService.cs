@@ -5,7 +5,7 @@ namespace DaoBlissWebApp.Interfaces.Services
 {
 	public interface IOrderService
 	{
-		Task CreateOrderAsync(Order order, List<OrderItem> orderDetails, ApplicationUser user);
-		Task<UserAddress> GetDefaultCustomerAddressAsync(string userId);
+		Task CreateOrderAsync(Order order, List<OrderItem> items);
+		Task<Order?> GetOrderByNumberAsync(string orderNumber);
 	}
 }

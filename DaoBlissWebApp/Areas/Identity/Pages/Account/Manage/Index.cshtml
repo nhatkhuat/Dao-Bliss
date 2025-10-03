@@ -5,16 +5,135 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
+<div class="w-full px-4 sm:px-6 py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+            <partial name="_ManageNav" />
+            <div class="flex-1">
+                <form id="profile-form" method="post">
+                    <div id="profile-section" class="profile-content bg-white rounded-lg shadow-sm border p-8">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-6">Thông tin tài khoản</h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Họ Tên *</label>
+                                <input type="text" asp-for="Input.FirstName" placeholder="Nhập họ và tên." required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <span asp-validation-for="Input.FirstName" class="text-red-500 text-sm"></span>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Số điện thoại *</label>
+                                <input type="tel" asp-for="Input.PhoneNumber" placeholder="Nhập số điện thoại của bạn." required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <span asp-validation-for="Input.PhoneNumber" class="text-red-500 text-sm"></span>
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-sm font-medium class=" form-control" text-gray-700 mb-2">Ngày sinh</label>
+                                <input asp-for="Input.DateOfBirth" placeholder="NHập ngày sinh." type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <span asp-validation-for="Input.DateOfBirth" class="text-red-500 text-sm"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Giới tính</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <div class="relative">
+                                        <input type="radio" asp-for="Input.Gender" value="true">
+                                    </div>
+                                    <span class="text-sm text-gray-700">Nam</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <div class="relative">
+                                        <input type="radio" asp-for="Input.Gender" value="false">
+                                    </div>
+                                    <span class="text-sm text-gray-700">Nữ</span>
+                                </label>
+                                <span asp-validation-for="Input.Gender" class="text-red-500 text-sm"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <button type="submit"
+                                    class="bg-primary text-white px-8 py-2 rounded !rounded-button text-sm font-medium whitespace-nowrap hover:bg-green-800 transition-colors">
+                                Cập nhật tài khoản
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                @*
+
+                <div id="membership-section" class="profile-content bg-white rounded-lg shadow-sm border p-8 hidden">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Hạng thành viên</h2>
+
+                    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-6 mb-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center">
+                                <div class="w-8 h-8 flex items-center justify-center">
+                                    <i class="ri-vip-crown-fill text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-xl font-semibold text-gray-900">Thành viên Vàng</div>
+                                <div class="text-sm text-gray-600">Tổng chi tiêu: 5.250.000 VNĐ</div>
+                                <div class="text-sm text-gray-600">Điểm tích lũy: 525 điểm</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div class="text-center p-4 border border-gray-200 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-1">Thành viên Bạc</div>
+                            <div class="text-xs text-gray-500">Từ 1.000.000 VNĐ</div>
+                            <div class="mt-2 text-xs text-green-600">✓ Đã đạt</div>
+                        </div>
+                        <div class="text-center p-4 border-2 border-yellow-400 bg-yellow-50 rounded-lg">
+                            <div class="text-sm font-medium text-gray-900 mb-1">Thành viên Vàng</div>
+                            <div class="text-xs text-gray-600">Từ 5.000.000 VNĐ</div>
+                            <div class="mt-2 text-xs text-yellow-600">Hạng hiện tại</div>
+                        </div>
+                        <div class="text-center p-4 border border-gray-200 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-1">Thành viên Bạch Kim</div>
+                            <div class="text-xs text-gray-500">Từ 10.000.000 VNĐ</div>
+                            <div class="mt-2 text-xs text-gray-500">Còn 4.750.000 VNĐ</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-4">Quyền lợi thành viên</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-check-line text-green-600"></i>
+                                </div>
+                                <span class="text-sm">Giảm giá 5% cho tất cả đơn hàng</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-check-line text-green-600"></i>
+                                </div>
+                                <span class="text-sm">Miễn phí giao hàng cho đơn từ 500.000 VNĐ</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-check-line text-green-600"></i>
+                                </div>
+                                <span class="text-sm">Ưu tiên hỗ trợ khách hàng</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-check-line text-green-600"></i>
+                                </div>
+                                <span class="text-sm">Nhận thông báo sớm về khuyến mãi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
             </div>
+<<<<<<< HEAD
             <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" placeholder="Please enter your first name." />
                 <label asp-for="Input.FirstName" class="form-label"></label>
@@ -48,6 +167,9 @@
             </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
+=======
+        </div>
+>>>>>>> Nhat
     </div>
 </div>
 

@@ -33,9 +33,9 @@ namespace DaoBlissWebApp.Common.Entities
 
 		// Navigation Properties
 		[ForeignKey("OrderId")]
-		public Order Order { get; set; }
+		public Order? Order { get; set; }
 
 		[ForeignKey("ProductVariantId")]
-		public ProductVariant ProductVariant { get; set; }
+		public ProductVariant? ProductVariant { get; set; }
 	}
 }

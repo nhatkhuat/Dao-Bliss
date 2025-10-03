@@ -1,0 +1,61 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.CustomerRanks.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CustomerRank</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+            <input type="hidden" asp-for="CustomerRank.Id" />
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="CustomerRank.Name" class="control-label"></label>
+                <input asp-for="CustomerRank.Name" class="form-control" />
+                <span asp-validation-for="CustomerRank.Name" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerRank.Description" class="control-label"></label>
+                <input asp-for="CustomerRank.Description" class="form-control" />
+                <span asp-validation-for="CustomerRank.Description" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerRank.MinSpentAmount" class="control-label"></label>
+                <input asp-for="CustomerRank.MinSpentAmount" class="form-control" />
+                <span asp-validation-for="CustomerRank.MinSpentAmount" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerRank.SortOrder" class="control-label"></label>
+                <input asp-for="CustomerRank.SortOrder" class="form-control" />
+                <span asp-validation-for="CustomerRank.SortOrder" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CustomerRank.IsActive" /> @Html.DisplayNameFor(model => model.CustomerRank.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerRank.CreatedAt" class="control-label"></label>
+                <input asp-for="CustomerRank.CreatedAt" class="form-control" />
+                <span asp-validation-for="CustomerRank.CreatedAt" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -32,7 +32,7 @@ namespace DaoBlissWebApp.Common.Entities
 		[MaxLength(10)]
 		public string PostalCode { get; set; }
 
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 		// Navigation Properties
 		[ForeignKey("UserId")]

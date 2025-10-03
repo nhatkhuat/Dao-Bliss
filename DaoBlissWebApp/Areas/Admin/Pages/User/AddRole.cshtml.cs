@@ -15,7 +15,11 @@ using System.Threading.Tasks;
 
 namespace DaoBlissWebApp.Areas.Admin.Pages.User
 {
+<<<<<<< HEAD
 	//[Authorize(Roles = "Admin")]
+=======
+	[Authorize(Roles = "Admin")]
+>>>>>>> Nhat
 	public class AddRoleModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
@@ -72,6 +76,10 @@ namespace DaoBlissWebApp.Areas.Admin.Pages.User
 			RoleNames = (await _userManager.GetRolesAsync(User)).ToArray<string>();
 
 			List<string> roleNames = await _roleManager.Roles
+<<<<<<< HEAD
+=======
+				.Where(role => (!"Admin".Equals(role.Name)))
+>>>>>>> Nhat
 				.Select(role => role.Name)
 				.ToListAsync();
 

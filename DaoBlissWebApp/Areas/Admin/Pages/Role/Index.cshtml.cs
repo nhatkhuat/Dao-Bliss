@@ -7,7 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DaoBlissWebApp.Areas.Admin.Pages.Role
 {
+<<<<<<< HEAD
 	//[Authorize(Roles = "Admin")]
+=======
+	[Authorize(Roles = "Admin")]
+>>>>>>> Nhat
 	public class IndexModel : RolePageModel
 	{
 		public IndexModel(RoleManager<IdentityRole> roleManager) : base(roleManager)

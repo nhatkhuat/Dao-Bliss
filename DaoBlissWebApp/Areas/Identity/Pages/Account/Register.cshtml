@@ -1,11 +1,17 @@
 ﻿@page "/register"
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Đăng ký";
+    var thongbao = @TempData["ErrorMessage"];
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <partial name="/Areas/Identity/Pages/Account/_StatusMessage.cshtml" model="thongbao" />
+}
 
+<<<<<<< HEAD
 <div class="row">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -46,26 +52,86 @@
                         <p>
                             not configured
                         </p>
+=======
+<div class="w-full max-w-md mx-auto my-12">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-green-800 mb-2">Đăng ký</h1>
+        </div>
+
+        <form class="space-y-6" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm" role="alert"></div>
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.FirstName" placeholder="Họ tên (*)" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-user-line text-gray-400"></i>
+>>>>>>> Nhat
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+                </div>
+                <span asp-validation-for="Input.FirstName" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.PhoneNumber" placeholder="Số điện thoại (*)" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-phone-line text-gray-400"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Input.PhoneNumber" class="text-red-500 text-sm"></span>
+            </div>
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.Email" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           placeholder="Email (*)" aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-mail-line text-gray-400"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Input.Email" class="text-red-500 text-sm"></span>
+            </div>
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.Password" type="password" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           placeholder="Mật khẩu của bạn (*)" autocomplete="new-password" aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Input.Password" class="text-red-500 text-sm"></span>
+            </div>
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.ConfirmPassword" type="password" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           placeholder="Nhập lại mật khẩu (*)" autocomplete="new-password" aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-red-500 text-sm"></span>
+            </div>
+
+            <button type="submit" id="login-submit" class="w-full text-white bg-green-700 py-3 rounded-lg font-medium whitespace-nowrap hover:bg-green-900 transition-colors">
+                Đăng ký
+            </button>
+        </form>
+
+        <div class="text-center mt-6">
+            <a asp-page="./Login" class="text-sm text-green-800 hover:text-green-800 font-medium">Về trang đăng nhập</a>
+        </div>
     </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+

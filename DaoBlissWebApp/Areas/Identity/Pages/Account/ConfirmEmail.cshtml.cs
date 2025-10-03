@@ -35,7 +35,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
         {
             if (userId == null || code == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -46,11 +46,19 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
+<<<<<<< HEAD
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
 			if (result.Succeeded)
 			{
 				await _signInManager.SignInAsync(user, isPersistent: false);
 				RedirectToPage("/Index");
+=======
+            StatusMessage = result.Succeeded ? "Xác thực email thành công." : "Xác thực email không thành công. Vui lòng thử lại.";
+			if (result.Succeeded)
+			{
+				await _signInManager.SignInAsync(user, isPersistent: false);
+				RedirectToPage("/");
+>>>>>>> Nhat
 			}
 			else
 			{

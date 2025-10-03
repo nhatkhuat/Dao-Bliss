@@ -1,10 +1,264 @@
-﻿@page
-@model IndexModel
+﻿@page "/"
+@model DaoBlissWebApp.Pages.IndexModel
+@using DaoBlissWebApp.Common.Entities
+@using System.Text.Json
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="relative min-h-screen w-full overflow-hidden bg-[url('https://res.cloudinary.com/dsvasaqr8/image/upload/f_auto,q_auto,w_auto/v1756538266/LandingPageImage_qf4jah.png')] bg-cover bg-center bg-fixed sm:bg-fixed">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+    <div class="relative w-full px-4 sm:px-6 py-12 sm:py-20 flex items-center min-h-screen">
+        <div class="max-w-2xl mx-auto sm:mx-0 text-center sm:text-left" data-aos="fade-up">
+            <h1 class="text-3xl sm:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                Tinh hoa thảo dược<br>
+                <span class="text-primary">Người Dao</span>
+            </h1>
+            <p class="text-base sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                Khám phá những sản phẩm thảo dược tự nhiên được truyền lại qua hàng nghìn năm.
+                Từ những lá cây quý hiếm trên núi cao, chúng tôi mang đến cho bạn sự thư thái và vẻ đẹp thuần khiết từ thiên nhiên.
+            </p>
+            <div class="flex justify-center sm:justify-start space-x-4">
+                <a href="#story-index" aria-label="Khám phá câu chuyện của DaoBliss"
+                   class="border border-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md font-semibold whitespace-nowrap hover:bg-green-700 hover:border-green-700 transition-colors">
+                    Khám Phá Ngay
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-yellow-50" id="story-index">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Câu Chuyện Của Chúng Tôi</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Người Dao đã sống hòa hợp với thiên nhiên hàng nghìn năm, tích lũy những kiến thức quý báu về thảo dược.
+                Chúng tôi kế thừa và phát huy những giá trị truyền thống này.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <div data-aos="fade-right">
+                <img src="~/img/TruyenThongNghinNam.jpg"
+                     alt="Thu hoạch thảo dược" class="w-full h-96 object-cover rounded-xl">
+            </div>
+            <div data-aos="fade-left">
+                <h3 class="text-3xl font-bold text-gray-900 mb-6">Truyền Thống Nghìn Năm</h3>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                    Từ những vùng núi cao Tây Bắc, người Dao đã khám phá và sử dụng hàng trăm loại thảo dược quý hiếm.
+                    Những kiến thức này được truyền từ thế hệ này sang thế hệ khác, tạo nên một kho tàng y học cổ truyền vô giá.
+                </p>
+                <p class="text-gray-700 mb-8 leading-relaxed">
+                    Chúng tôi tôn trọng và bảo tồn những giá trị này, đồng thời ứng dụng công nghệ hiện đại để mang đến
+                    những sản phẩm chất lượng cao, an toàn cho sức khỏe và làm đẹp.
+                </p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary mb-2">1000+</div>
+                        <div class="text-gray-600">Năm Truyền Thống</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary mb-2">50+</div>
+                        <div class="text-gray-600">Loại Thảo Dược</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Sản Phẩm Nổi Bật</h2>
+            <p class="text-xl text-gray-600"></p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            @for (int i = 0; i < 4; i++)
+            {
+                if (Model.Product.Count > 0)
+                {
+                    Product pro = Model.Product[i];
+                    string imgUrl = pro.Images.FirstOrDefault()?.ImageUrl ?? "";
+                    string price = pro.Variants.FirstOrDefault()?.Price.ToString("c0", new System.Globalization.CultureInfo("vi-VN")) ?? "150.000 ₫";
+
+                    string desc = "";
+                    if (!string.IsNullOrEmpty(pro.Description) && pro.Description.TrimStart().StartsWith("{"))
+                    {
+                        try
+                        {
+                            var parsed = JsonSerializer.Deserialize<ProductDescription>(pro.Description);
+                            desc = parsed?.Mota ?? "";
+                        }
+                        catch
+                        {
+                            desc = pro.Description;
+                        }
+                    }
+                    else
+                    {
+                        desc = pro.Description;
+                    }
+                    <a asp-page="ProductDetail" asp-route-slug="@pro.Slug"
+                       class="group block" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg transition-transform group-hover:-translate-y-1">
+                            <img src="@imgUrl"
+                                 alt="@pro.Name" class="w-full h-64 object-cover object-top">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary">
+                                    @pro.Name
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    @desc
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-bold text-primary">@price</span>
+                                    <button class="border border-green-700 text-green-700 px-4 py-2 rounded text-sm whitespace-nowrap hover:bg-green-700 hover:text-white transition-colors">
+                                        Xem thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+            }
+        </div>
+    </div>
+</section>
+<section class="py-20 bg-green-700 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+            <div class="lg:col-span-2">
+                <h2 class="text-4xl font-bold mb-6">Lợi Ích Vượt Trội</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Sản phẩm thảo dược người Dao mang lại những lợi ích tuyệt vời cho sức khỏe và vẻ đẹp của bạn
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgb(212,175,55)">
+                            <i class="ri-leaf-line text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">100% Tự Nhiên</h3>
+                            <p class="opacity-90">Không chất bảo quản, không hóa chất độc hại</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgb(212,175,55)">
+                            <i class="ri-shield-check-line text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">An Toàn Tuyệt Đối</h3>
+                            <p class="opacity-90">Kiểm định chất lượng nghiêm ngặt</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgb(212,175,55)">
+                            <i class="ri-time-line text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Hiệu Quả Nhanh</h3>
+                            <p class="opacity-90">Cảm nhận sự khác biệt chỉ sau vài lần sử dụng</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgb(212,175,55)">
+                            <i class="ri-heart-line text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Dịu Nhẹ</h3>
+                            <p class="opacity-90">Phù hợp với mọi loại da, kể cả da nhạy cảm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="https://readdy.ai/api/search-image?query=dao%20ethnic%20woman%20with%20beautiful%20long%20black%20hair%20using%20natural%20herbal%20products%20peaceful%20mountain%20background%20traditional%20beauty%20ritual%20serene%20atmosphere&width=400&height=500&seq=7&orientation=portrait"
+                     alt="Vẻ đẹp tự nhiên" class="w-full h-96 object-cover rounded-xl">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-20 bg-yellow-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Blog & Văn Hóa</h2>
+            <p class="text-xl text-gray-600">Khám phá văn hóa và bí quyết làm đẹp truyền thống của người Dao đỏ</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @{
+                int max = Model.Articles.Count > 2 ? 3 : Model.Articles.Count;
+            }
+
+            @for (int i = 0; i < max; i++)
+            {
+                Article art = Model.Articles[i];
+                string imgUrl = art.ImageUrl ?? "";
+                <a asp-page="BlogDetail" asp-route-slug="@art.Slug" class="group" data-aos="fade-up" data-aos-delay="@((i+1)*100)">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg transition-transform group-hover:-translate-y-1">
+                        <img src="@imgUrl"
+                             alt="Văn hóa người Dao" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary">@art.Title</h3>
+                            <p class="text-gray-600 text-sm line-clamp-2">@art.Summary</p>
+                        </div>
+                    </div>
+                </a>
+            }
+
+        </div>
+        <div class="text-center mt-12">
+            <a asp-page="Blogs" class="inline-flex items-center space-x-2 text-primary hover:text-green-700 transition-colors">
+                <span class="font-semibold">Xem tất cả bài viết</span>
+                <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+    </div>
+</section>
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Sẵn Sàng Trải Nghiệm?</h2>
+        <p class="text-xl text-gray-600 mb-8">
+            Hãy để những sản phẩm thảo dược tự nhiên của người Dao mang lại vẻ đẹp thuần khiết cho bạn
+        </p>
+        <div class="bg-yellow-50 rounded-2xl p-8 mb-8">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Đăng Ký Nhận Tư Vấn Miễn Phí</h3>
+            <div class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Nhập email của bạn"
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <button class="bg-green-700 text-white px-6 py-3 rounded font-semibold whitespace-nowrap hover:bg-green-700 transition-colors">
+                    Đăng Ký Ngay
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-3">
+                Chúng tôi sẽ tư vấn sản phẩm phù hợp nhất với nhu cầu của bạn
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="w-16 h-16 bg-green-700/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-truck-line text-primary text-2xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-2">Giao Hàng Toàn Quốc</h4>
+                <p class="text-gray-600 text-sm">Miễn phí vận chuyển cho đơn hàng trên 300.000đ</p>
+            </div>
+            <div>
+                <div class="w-16 h-16 bg-green-700/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-customer-service-2-line text-primary text-2xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-2">Hỗ Trợ 24/7</h4>
+                <p class="text-gray-600 text-sm">Đội ngũ tư vấn chuyên nghiệp luôn sẵn sàng hỗ trợ</p>
+            </div>
+            <div>
+                <div class="w-16 h-16 bg-green-700/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-shield-check-line text-primary text-2xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-2">Đảm Bảo Chất Lượng</h4>
+                <p class="text-gray-600 text-sm">Hoàn tiền 100% nếu phát hiện hàng giả</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link href="~/css/hero-section.css" rel="stylesheet" />

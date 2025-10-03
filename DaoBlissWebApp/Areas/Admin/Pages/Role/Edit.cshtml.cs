@@ -8,7 +8,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DaoBlissWebApp.Areas.Admin.Pages.Role
 {
+<<<<<<< HEAD
 	//[Authorize(Roles = "Admin")]
+=======
+	[Authorize(Roles = "Admin")]
+>>>>>>> Nhat
 	public class EditModel : RolePageModel
 	{
 		public EditModel(RoleManager<IdentityRole> roleManager) : base(roleManager)

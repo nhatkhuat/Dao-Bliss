@@ -4,164 +4,68 @@
     ViewData["Title"] = "Bài viết";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-<html lang="vi">
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>
-        DaoBliss
-    </title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;family=Roboto&amp;display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <style>
-        body {
-            font-family: "Roboto", sans-serif;
-            background-color: #fff;
-        }
 
-        .font-playfair {
-            font-family: "Playfair Display", serif;
-        }
-        /* Custom scrollbar for pagination arrows */
-        .pagination-arrow {
-            background-color: #a3b49a;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+<section class="relative h-96 bg-cover bg-center"
+         style="background-image: url('https://res.cloudinary.com/dsvasaqr8/image/upload/1393fe4f1d5719e32432aa43563db0da_umshhe.jpg');">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10 flex items-center justify-center h-full text-center text-white">
+        <div>
+            <h1 class="text-5xl font-bold mb-4 shadow-md" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Câu chuyện văn hóa</h1>
+            <p class="text-xl font-semibold shadow-md" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Nơi giữ gìn, phát triển, lan tỏa bản sắc dân tộc</p>
+        </div>
+    </div>
+</section>
 
-            .pagination-arrow.active,
-            .pagination-arrow:hover {
-                background-color: #2f4f2f;
+<div id="blog-list" class="px-4 py-12 bg-yellow-50">
+    <div class="max-w-6xl mx-auto">
+        <div class="space-y-12">
+            @for (int i = 0; i < Model.Articles.Count; i++)
+            {
+                var article = Model.Articles[i];
+                var isReverse = i % 2 != 0;
+                <article class="flex flex-col @if(isReverse) { @:lg:flex-row-reverse
+                } else { @:lg:flex-row
+                } gap-8 items-start">
+                    <div class="lg:w-1/3">
+                        <img src="@article.ImageUrl" alt="@article.Title" class="w-full h-64 object-cover rounded-lg">
+                    </div>
+                    <div class="lg:w-2/3">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">@article.Title</h2>
+                        <p class="text-gray-600 mb-4 leading-relaxed line-clamp-5">@article.Summary</p>
+                        <a asp-page="BlogDetail" asp-route-slug="@article.Slug" class="text-green-700 font-medium hover:underline">Đọc thêm</a>
+                    </div>
+                </article>
             }
-    </style>
-</head>
-<body class="relative">
-    
-    <!-- Hero Section -->
-    <section aria-label="Câu chuyện văn hóa" class="relative w-full max-w-100% mx-auto">
-        <img alt="Blurred background image of herbal oils and natural ingredients on wooden table" class="w-full h-40 sm:h-80 object-cover brightness-75" decoding="async" height="320" loading="lazy" src="https://storage.googleapis.com/a1aa/image/edc37819-726a-49f8-edcf-034a048a5cd6.jpg" width="1920" />
-        <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4" style="text-shadow: 0 0 10px rgba(0,0,0,0.7)">
-            <h1 class="font-playfair font-semibold text-3xl sm:text-5xl leading-tight max-w-4xl">
-                Câu chuyện văn hóa
-            </h1>
-            <p class="mt-2 text-sm sm:text-lg max-w-3xl">
-                Nơi giữ gìn, phát triển, lan tỏa bản sắc dân tộc
-            </p>
+            @if (!Model.Articles.Any())
+            {
+                <p class="text-center text-gray-500">Không có bài viết nào.</p>
+            }
         </div>
-        <div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-[#2f4f2f]/80 to-white">
-        </div>
-    </section>
-    <!-- Articles Section -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-8 mt-10 space-y-16">
-        <!-- Article 1 -->
-        <article aria-label="Hoàng Liên, Vị thuốc đắng nhất nhưng quý nhất" class="flex flex-col md:flex-row md:items-start md:space-x-8 max-w-5xl mx-auto">
-            <img alt="Close-up photo of green Hoang Lien herb leaves growing on soil in natural environment" class="w-full md:w-80 rounded-md h-48 object-cover mb-4 md:mb-0 flex-shrink-0" decoding="async" height="200" loading="lazy" src="https://storage.googleapis.com/a1aa/image/af54e547-df77-4f7f-ca42-2795ec3aaa8d.jpg" width="320" />
-            <div class="text-[#2f4f2f]">
-                <h2 class="font-playfair text-xl font-semibold leading-snug">
-                    Hoàng Liên, Vị thuốc đắng nhất nhưng quý nhất
-                </h2>
-                <p class="text-sm text-[#7a7a7a] mt-1 mb-2 font-light">
-                    Tác giả: Trần Hoàng
-                </p>
-                <p class="text-sm leading-relaxed text-justify">
-                    <span class="font-semibold">
-                        Cây Hoàng Liên
-                    </span>
-                    thuộc họ Hoàng Liên,
-                    tên khoa học là Coptis teeta Wall. được xem là một loại cây dại, mọc nhiều
-                    ở khu vực miền núi nước ta. Tuy nhiên có thể nhiều người sẽ bất ngờ với
-                    thông tin loại cây dại này thực chất lại là một trong những loại dược liệu
-                    quý được sử dụng rộng rãi trong Y Học Cổ Truyền với nhiều công dụng như:
-                    trị
-                    <u>
-                        <strong>
-                            bệnh đường tiêu hóa
-                        </strong>
-                    </u>
-                    , kháng viêm, điều trị
-                    <u>
-                        <strong>
-                            ho gà
-                        </strong>
-                    </u>
-                    ...
-                </p>
+
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex justify-center mt-12">
+                <div class="flex items-center gap-2">
+                    <a asp-page="/Blogs" asp-route-pageIndex="@(Model.CurrentPage > 1 ? Model.CurrentPage - 1 : 1)" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded text-sm hover:border-blue-500 @(Model.CurrentPage == 1 ? "pointer-events-none opacity-50" : "")">
+                        <i class="ri-arrow-left-s-line text-black"></i>
+                    </a>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <a asp-page="/Blogs" asp-route-pageIndex="@i"
+                           class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded text-sm
+          @(Model.CurrentPage == i ? "bg-green-700 text-white" : "text-gray-900 hover:text-blue-600")">
+                            @i
+                        </a>
+
+                    }
+                    <a asp-page="/Blogs" asp-route-pageIndex="@(Model.CurrentPage < Model.TotalPages ? Model.CurrentPage + 1 : Model.TotalPages)" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded text-sm hover:border-blue-500 @(Model.CurrentPage == Model.TotalPages ? "pointer-events-none opacity-50" : "")">
+                        <i class="ri-arrow-right-s-line text-black"></i>
+                    </a>
+                    <a asp-page="/Blogs" asp-route-pageIndex="@Model.TotalPages" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded text-sm hover:border-blue-500 @(Model.CurrentPage == Model.TotalPages ? "pointer-events-none opacity-50" : "")">
+                        <i class="ri-skip-right-line text-black"></i>
+                    </a>
+                </div>
             </div>
-        </article>
-        <!-- Article 2 -->
-        <article aria-label="Giữ nghề làm thuốc nam của người Dao Đỏ" class="flex flex-col md:flex-row md:items-start md:space-x-8 max-w-5xl mx-auto">
-            <div class="text-[#2f4f2f] md:w-1/2">
-                <h2 class="font-playfair text-xl font-semibold leading-snug">
-                    Giữ nghề làm thuốc nam của người Dao Đỏ
-                </h2>
-                <p class="text-sm text-[#7a7a7a] mt-1 mb-2 font-light">
-                    Tác giả: Việt Lâm
-                </p>
-                <p class="text-sm leading-relaxed text-justify">
-                    Đồng bào dân tộc Dao Đỏ tích lũy được nhiều vốn y học cổ truyền từ nhiều
-                    thế hệ. Đa số các gia đình đều tự chữa những bệnh thông thường cho người
-                    nhà theo kinh nghiệm của gia đình, dòng tộc. Mỗi làng, mỗi bản đều có những
-                    thầy thuốc giỏi bốc thuốc chữa bệnh. Nguyên liệu làm thuốc chủ yếu hái lượm
-                    ở rừng, ven suối, ít khi trồng sẵn. Họ tìm thân, lá, vỏ cây, dây leo, củ,
-                    rễ cây...
-                </p>
-            </div>
-            <img alt="Woman wearing red headscarf picking herbs in forest, traditional Dao Do ethnic costume" class="w-full md:w-80 rounded-md h-48 object-cover mt-4 md:mt-0 flex-shrink-0" decoding="async" height="200" loading="lazy" src="https://storage.googleapis.com/a1aa/image/752ebd68-db0d-4965-3e20-f715559e9cdf.jpg" width="320" />
-        </article>
-        <!-- Article 3 -->
-        <article aria-label="Trải nghiệm tuyệt vời với phụ nữ sau sinh" class="flex flex-col md:flex-row md:items-start md:space-x-8 max-w-5xl mx-auto">
-            <img alt="Relaxed woman with closed eyes enjoying spa experience in white bathtub" class="w-full md:w-80 rounded-md h-48 object-cover mb-4 md:mb-0 flex-shrink-0" decoding="async" height="200" loading="lazy" src="https://storage.googleapis.com/a1aa/image/06e7161a-8001-4195-64a6-ffc85c178889.jpg" width="320" />
-            <div class="text-[#2f4f2f] md:w-1/2">
-                <h2 class="font-playfair text-xl font-semibold leading-snug">
-                    Trải nghiệm tuyệt vời với phụ nữ sau sinh
-                </h2>
-                <p class="text-sm text-[#7a7a7a] mt-1 mb-2 font-light">
-                    Tác giả: Mai Thanh
-                </p>
-                <p class="text-sm leading-relaxed text-justify">
-                    Dân gian vẫn thường ví von “người mẹ sau sinh như cua lột xác”. Tuy nhiên,
-                    thay vì áp dụng các biện pháp chăm sóc tốt cho cơ thể thì một số bà mẹ chủ
-                    quan cho rằng cơ thể sẽ tự hồi phục lại. Chính điều này dẫn đến tình trạng
-                    suy nhược sau sinh. Ngược lại, một số bà mẹ lại ngược xuôi tìm kiếm các
-                    biện pháp giúp mình nhanh chóng hồi phục sức khỏe sau sinh...
-                </p>
-            </div>
-        </article>
-        <!-- Pagination -->
-        <nav aria-label="Pagination" class="max-w-5xl mx-auto flex items-center justify-center space-x-3 mb-3 text-[#2f4f2f] font-playfair text-lg select-none">
-            <span>
-                Trang:
-            </span>
-            <button aria-label="Trang trước 2" class="pagination-arrow" disabled="" style="opacity: 0.5; cursor: default" tabindex="-1">
-                <i class="fas fa-angle-double-left">
-                </i>
-            </button>
-            <button aria-label="Trang trước" class="pagination-arrow" disabled="" style="opacity: 0.5; cursor: default" tabindex="-1">
-                <i class="fas fa-angle-left">
-                </i>
-            </button>
-            <span class="font-semibold text-base">
-                01/02
-            </span>
-            <button aria-label="Trang tiếp theo" class="pagination-arrow active">
-                <i class="fas fa-angle-right">
-                </i>
-            </button>
-            <button aria-label="Trang cuối" class="pagination-arrow active">
-                <i class="fas fa-angle-double-right">
-                </i>
-            </button>
-        </nav>
-    </main>
-    
-</body>
-</html>
+        }
+    </div>
+</div>

@@ -1,0 +1,135 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.Orders.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+            <div class="form-group">
+                <label asp-for="Order.UserId" class="control-label"></label>
+                <select asp-for="Order.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.OrderNumber" class="control-label"></label>
+                <input asp-for="Order.OrderNumber" class="form-control" />
+                <span asp-validation-for="Order.OrderNumber" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.Status" class="control-label"></label>
+                <input asp-for="Order.Status" class="form-control" />
+                <span asp-validation-for="Order.Status" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.PaymentStatus" class="control-label"></label>
+                <input asp-for="Order.PaymentStatus" class="form-control" />
+                <span asp-validation-for="Order.PaymentStatus" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.PaymentMethod" class="control-label"></label>
+                <input asp-for="Order.PaymentMethod" class="form-control" />
+                <span asp-validation-for="Order.PaymentMethod" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingFullName" class="control-label"></label>
+                <input asp-for="Order.ShippingFullName" class="form-control" />
+                <span asp-validation-for="Order.ShippingFullName" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingPhoneNumber" class="control-label"></label>
+                <input asp-for="Order.ShippingPhoneNumber" class="form-control" />
+                <span asp-validation-for="Order.ShippingPhoneNumber" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingAddress" class="control-label"></label>
+                <input asp-for="Order.ShippingAddress" class="form-control" />
+                <span asp-validation-for="Order.ShippingAddress" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingCity" class="control-label"></label>
+                <input asp-for="Order.ShippingCity" class="form-control" />
+                <span asp-validation-for="Order.ShippingCity" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingDistrict" class="control-label"></label>
+                <input asp-for="Order.ShippingDistrict" class="form-control" />
+                <span asp-validation-for="Order.ShippingDistrict" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingWard" class="control-label"></label>
+                <input asp-for="Order.ShippingWard" class="form-control" />
+                <span asp-validation-for="Order.ShippingWard" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.ShippingEmail" class="control-label"></label>
+                <input asp-for="Order.ShippingEmail" class="form-control" />
+                <span asp-validation-for="Order.ShippingEmail" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.SubTotal" class="control-label"></label>
+                <input asp-for="Order.SubTotal" class="form-control" />
+                <span asp-validation-for="Order.SubTotal" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShippingFee" class="control-label"></label>
+                <input asp-for="Order.ShippingFee" class="form-control" />
+                <span asp-validation-for="Order.ShippingFee" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Discount" class="control-label"></label>
+                <input asp-for="Order.Discount" class="form-control" />
+                <span asp-validation-for="Order.Discount" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Order.Total" class="control-label"></label>
+                <input asp-for="Order.Total" class="form-control" />
+                <span asp-validation-for="Order.Total" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Notes" class="control-label"></label>
+                <input asp-for="Order.Notes" class="form-control" />
+                <span asp-validation-for="Order.Notes" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.CreatedAt" class="control-label"></label>
+                <input asp-for="Order.CreatedAt" class="form-control" />
+                <span asp-validation-for="Order.CreatedAt" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.UpdatedAt" class="control-label"></label>
+                <input asp-for="Order.UpdatedAt" class="form-control" />
+                <span asp-validation-for="Order.UpdatedAt" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

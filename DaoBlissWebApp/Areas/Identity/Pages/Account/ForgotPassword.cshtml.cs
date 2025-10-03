@@ -46,7 +46,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress(ErrorMessage = "Wrong email format")]
+            [EmailAddress]
             public string Email { get; set; }
         }
 
@@ -55,7 +55,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToPage("./ForgotPasswordConfirmation");
@@ -73,8 +73,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+					"Daobliss – Lấy lại mật khẩu đăng nhập",
+                    $"Để đặt lại mật khẩu, click ngay hoặc copy đường link này vào trình duyệt của bạn và làm theo hướng dẫn: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>tại đây</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

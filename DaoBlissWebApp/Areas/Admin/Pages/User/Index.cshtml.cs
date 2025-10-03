@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DaoBlissWebApp.Areas.Admin.Pages.User
 {
+<<<<<<< HEAD
 	//[Authorize(Roles = "Admin")]
+=======
+	[Authorize(Roles = "Admin")]
+>>>>>>> Nhat
 	public class IndexModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;

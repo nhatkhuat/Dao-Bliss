@@ -24,7 +24,7 @@ namespace DaoBlissWebApp.Common.Entities
 
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal TotalSpent { get; set; } = 0;
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 		
 		[ForeignKey("RankId")]
 		public virtual CustomerRank? Rank { get; set; }

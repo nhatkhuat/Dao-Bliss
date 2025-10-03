@@ -1,10 +1,14 @@
 ﻿@page "/lockaccount.html"
 @model LockoutModel
 @{
-    ViewData["Title"] = "Locked out";
+    ViewData["Title"] = "Tài khoản bị tạm khóa";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">This account has been locked out, please try again later.</p>
-</header>
+
+<div class="w-full max-w-md mx-auto my-12">
+    <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-red-500 text-sm mb-2">Tài khoản bị tạm khóa, thử lại sau 5 phút nữa.</h1>
+        </div>
+    </div>
+</div>

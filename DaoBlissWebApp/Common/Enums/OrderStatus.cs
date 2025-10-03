@@ -13,6 +13,8 @@ namespace DaoBlissWebApp.Common.Enums
 		[Display(Name = "Hoàn tất")]
 		Completed,
 		[Display(Name = "Hủy đơn")]
-		Cancelled
+		Cancelled,
+		[Display(Name = "Hoàn hàng")]
+		Returned
 	}
 }

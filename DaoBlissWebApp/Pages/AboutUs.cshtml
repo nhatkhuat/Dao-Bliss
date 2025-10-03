@@ -4,153 +4,25 @@
     ViewData["Title"] = "Về chúng tôi";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>
-        DaoBliss Product Page
-    </title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;family=Roboto&amp;display=swap" rel="stylesheet" />
-    <style>
-        body {
-            font-family: "Roboto", sans-serif;
-        }
-
-        .font-playfair {
-            font-family: "Playfair Display", serif;
-        }
-    </style>
-    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
-    <script src="https://files.bpcontent.cloud/2025/07/11/08/20250711083358-FVA851WT.js" defer></script>
-    <style>
-        .about-section {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .background-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        /* Các lớp màu nghiêng */
-        .skew-layer {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            z-index: 1;
-            transform-origin: top left;
-        }
-
-        .layer-1 {
-            width: 55%;
-            background: rgba(33, 57, 41, 0.9); /* Xanh lá đậm */
-            transform: skewX(10deg);
-            left: -12%;
-            z-index: 1;
-        }
-
-        .layer-2 {
-            width: 50%;
-            background: rgba(33, 57, 41, 0.4); /* Màu mờ hơn */
-            transform: skewX(-15deg);
-            left: 0;
-            z-index: 2;
-        }
-
-        .layer-3 {
-            width: 53%;
-            background: rgba(33, 57, 41, 0.25); /* Màu mờ nhất */
-            transform: skewX(-15deg);
-            left: 0;
-            z-index: 3;
-        }
-
-        /* Nội dung chính */
-        .content-container {
-            position: relative;
-            z-index: 4;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding-left: 5%;
-        }
-
-        .content {
-            color: white;
-            max-width: 90%;
-            transform: skewX(0); /* Không nghiêng nội dung */
-        }
-
-            .content h2, .content h4, .content p, .content ul, .content button {
-                margin-bottom: 1rem;
-            }
-
-        button {
-            background-color: #f6a623;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            cursor: pointer;
-        }
-
-    </style>
-    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
-    <script src="https://files.bpcontent.cloud/2025/07/11/08/20250711083358-FVA851WT.js" defer></script>
-</head>
-<body>
-    
-    <!-- Main conainer -->
-    <div class="about-section">
-        <div class="skew-layer layer-1"></div>
-        <div class="skew-layer layer-2"></div>
-        <div class="skew-layer layer-3"></div>
-
-        <div class="content-container">
-            <div class="content !max-w-[40%]">
-                <h2 class="text-4xl  mb-4 select-none">
-                    Về chúng tôi
-                </h2>
-                <h3 class="text-[#7a7a7a] text-xl mb-4 select-none">
-                    Giá trị cốt lõi
-                </h3>
-                <p class="text-sm leading-relaxed mb-8 ">
+<body class="font-sans text-[#f9f5f0]">
+    <div class="relative w-full h-screen overflow-hidden bg-[url('/img/tam-la-dao-do-tai-La-Dao-Spa.jpg')] bg-cover bg-center">
+        <div class="absolute top-0 h-full w-[55%] bg-[rgba(33,57,41,0.9)] skew-x-[10deg] origin-top-left -left-[12%] z-[1]"></div>
+        <div class="absolute top-0 h-full w-[50%] bg-[rgba(33,57,41,0.4)] skew-x-[-15deg] left-0 z-[2]"></div>
+        <div class="absolute top-0 h-full w-[53%] bg-[rgba(33,57,41,0.25)] skew-x-[-15deg] left-0 z-[3]"></div>
+        <div class="relative z-[4] h-full flex items-center pl-[5%]">
+            <div class="max-w-[40%] text-white">
+                <h2 class="text-4xl mb-4 select-none">Về chúng tôi</h2>
+                <h3 class="text-xl mb-4 select-none">Giá trị cốt lõi</h3>
+                <p class="text-sm text-justify leading-relaxed mb-8">
                     DaoBliss là doanh nghiệp chuyên sản xuất các sản phẩm chăm sóc sức khỏe tự nhiên, tập trung vào các thành phần hữu cơ, an toàn và không hóa chất. Không chỉ cung cấp sản phẩm, công ty còn hướng đến việc truyền tải và bảo tồn văn hóa bản địa - chia sẻ kiến thức và câu chuyện truyền thống của người Dao Đỏ. Mô hình này nắm bắt xu hướng toàn cầu đang phát triển, kết hợp kinh doanh với bảo tồn văn hóa và phát triển cộng đồng.
                 </p>
-                <h3 class="text-[#7a7a7a]  text-xl mb-4 select-none">
-                    Liên hệ với chúng tôi
-                </h3>
+                <h3 class="text-xl mb-4 select-none">Liên hệ với chúng tôi</h3>
                 <ul class="list-disc list-inside text-sm space-y-6 mb-8">
-                    <li>
-                        Địa chỉ: Số 5, đường Cầu Giấy, Quan Hoa, Hà Nội
-                    </li>
-                    <li>
-                        Emal; daobliss@gmail.com
-                    </li>
-                    <li>
-                        Số điện thoại: 0343564378
-                    </li>
+                    <li>Địa chỉ: Đại học FPT, Thạch Thất, Hà Nội</li>
+                    <li>Email: daobliss.official@gmail.com</li>
+                    <li>Số điện thoại: 033 273 3805</li>
                 </ul>
-                <button class="bg-[#ba7a2f] rounded-full px-6 py-2 text-white  text-lg hover:bg-[#a16e1f] transition select-none" type="button">
-                    Tham gia cùng chúng tôi tại đây
-                </button>
             </div>
         </div>
-
-        <img src="/img/tam-la-dao-do-tai-La-Dao-Spa.jpg" alt="Background" class="background-image" />
     </div>
-    <!-- End of Main conainer -->
-
 </body>
-</html>

@@ -14,29 +14,19 @@ namespace DaoBlissWebApp.Common.Entities
 		[Required]
 		public string UserId { get; set; }
 
-		public int? OrderId { get; set; }
-
 		[Required]
 		[Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]
 		public int Rating { get; set; }
 
-		[MaxLength(200)]
-		public string Title { get; set; }
-
-		[Column(TypeName = "ntext")]
+		[Column(TypeName = "nvarchar(max)")]
 		public string Comment { get; set; }
-		public bool IsVerified { get; set; } = false;
 		public bool IsApproved { get; set; } = false;
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-		// Navigation Properties
 		[ForeignKey("ProductId")]
-		public Product Product { get; set; }
+		public Product? Product { get; set; }
 
 		[ForeignKey("UserId")]
-		public ApplicationUser User { get; set; }
-
-		[ForeignKey("OrderId")]
-		public Order Order { get; set; }
+		public ApplicationUser? User { get; set; }
 	}
 }

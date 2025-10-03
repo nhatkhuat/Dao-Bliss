@@ -1,0 +1,77 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.ProductVariants.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].CompareAtPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Sku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductVariant[0].Size)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ProductVariant) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompareAtPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sku)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

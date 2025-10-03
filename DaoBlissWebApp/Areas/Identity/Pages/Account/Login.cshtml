@@ -2,15 +2,23 @@
 @model LoginModel
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = "Log in";
     var thongbao = @TempData["ErrorMessage"];
 }
 
 <h1>@ViewData["Title"]</h1>
+=======
+    ViewData["Title"] = "Đăng nhập";
+    var thongbao = @TempData["ErrorMessage"];
+}
+
+>>>>>>> Nhat
 @if (TempData.ContainsKey("ErrorMessage"))
 {
     <partial name="/Areas/Identity/Pages/Account/_StatusMessage.cshtml" model="thongbao" />
 }
+<<<<<<< HEAD
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -60,25 +68,112 @@
                         <p>
                             not configured
                         </p>
+=======
+
+
+<div class="w-full max-w-md mx-auto my-12">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-green-800 mb-2">Đăng nhập</h1>
+        </div>
+
+        <form class="space-y-6" id="account" method="post" asp-page="./Login">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm" role="alert"></div>
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.UserNameOrEmail" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           placeholder="Nhập email của bạn" autocomplete="username" aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-mail-line text-gray-400"></i>
+>>>>>>> Nhat
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
+
+                </div>
+                <span asp-validation-for="Input.UserNameOrEmail" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <div class="relative">
+                    <input asp-for="Input.Password" type="password" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                           placeholder="Mật khẩu của bạn" autocomplete="current-password" aria-required="true">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                        <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Input.Password" class="text-red-500 text-sm"></span>
+
+            </div>
+
+            <div class="flex items-center justify-between">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <div class="relative">
+                        <input type="checkbox" asp-for="Input.RememberMe" class="absolute opacity-0 w-5 h-5 cursor-pointer">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center">
+                            <i class="ri-check-line text-white text-sm hidden"></i>
                         </div>
-                    </form>
-                }
-            }
-        </section>
+                    </div>
+                    <span class="text-sm text-gray-700" italic>Remember me</span>
+                </label>
+                <a asp-page="./ForgotPassword" class="text-sm text-green-800 hover:text-green-800 underline">Lấy lại mật khẩu</a>
+            </div>
+
+            <button type="submit" id="login-submit" class="w-full text-white bg-green-800 py-3 rounded-lg  font-medium whitespace-nowrap hover:bg-green-800 transition-colors">
+                Đăng nhập
+            </button>
+        </form>
+
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">Hoặc</span>
+            </div>
+        </div>
+        <div class="relative my-6">
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <button type="submit"
+                        class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg !rounded-button hover:bg-gray-50 transition-colors"
+                        name="provider" value="@Model.ExternalLogins.First().Name"
+                        title="Log in using your @Model.ExternalLogins.First().DisplayName account">
+                    <div class="w-5 h-5 flex items-center justify-center mr-2">
+                        <i class="ri-google-fill text-red-500"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Google</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center">
+            <span class="text-sm text-gray-600">Bạn chưa có tài khoản? </span>
+            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-sm !text-green-800 hover:!text-green-800 font-medium">Đăng ký</a>
+        </div>
     </div>
 </div>
+
+<script id="login-functionality">
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkbox = document.querySelector('input[type="checkbox"]');
+        const checkIcon = document.querySelector('.ri-check-line');
+        const checkContainer = checkbox.nextElementSibling;
+
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                checkContainer.classList.add('bg-green-800', 'border-primary');
+                checkContainer.classList.remove('border-gray-300');
+                checkIcon.classList.remove('hidden');
+            } else {
+                checkContainer.classList.remove('bg-green-800', 'border-primary');
+                checkContainer.classList.add('border-gray-300');
+                checkIcon.classList.add('hidden');
+            }
+        });
+
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

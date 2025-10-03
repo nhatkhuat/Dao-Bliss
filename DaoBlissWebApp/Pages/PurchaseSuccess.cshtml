@@ -1,0 +1,28 @@
+﻿@page
+@model DaoBlissWebApp.Pages.PurchaseSuccessModel
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+}
+
+<div class="flex items-center justify-center min-h-[70vh] bg-gray-50  px-4">
+    <div class="bg-white p-6 sm:p-8 rounded-xl shadow-md w-full max-w-xl text-center">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">
+            Đặt hàng thành công!
+        </h1>
+        <p class="text-gray-600 mb-2">
+            Cảm ơn anh/chị đã đặt mua hàng tại
+            <span class="font-semibold text-green-700">DAOBLISS</span>
+        </p>
+        <p class="text-gray-600">
+            Đơn hàng của anh/chị đang được xử lý,
+            <span class="font-semibold">DAOBLISS</span> sẽ sớm liên hệ lại để giao hàng.
+        </p>
+        @if (Model.QrDataUrl != null)
+        {
+            <div id="qrCodeContainer" class="mt-6">
+                <h3 class="text-lg font-semibold mb-3">Quét mã QR để thanh toán</h3>
+                <img id="qrCodeImage" src="@Model.QrDataUrl" alt="QR Code" class="mx-auto w-64 max-w-full rounded-lg border" />
+            </div>
+        }
+    </div>
+</div>

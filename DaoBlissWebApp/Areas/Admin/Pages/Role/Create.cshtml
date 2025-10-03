@@ -12,18 +12,30 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+<<<<<<< HEAD
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+=======
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+>>>>>>> Nhat
             @*@if (!ViewData.ModelState.IsValid)
             {
                 foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                 {
+<<<<<<< HEAD
                     <div class="text-danger">@error.ErrorMessage</div>
+=======
+                    <div class="text-red-500 text-sm">@error.ErrorMessage</div>
+>>>>>>> Nhat
                 }
             }*@
             <div class="form-group">
                 <label asp-for="Input.Name" class="control-label"></label>
                 <input asp-for="Input.Name" class="form-control" />
+<<<<<<< HEAD
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
+=======
+                <span asp-validation-for="Input.Name" class="text-red-500 text-sm"></span>
+>>>>>>> Nhat
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

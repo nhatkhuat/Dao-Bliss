@@ -1,0 +1,21 @@
+﻿@page "/admin/chatbot"
+@model DaoBlissWebApp.Areas.Admin.Pages.ChatBot.ChatModel
+@{
+    ViewData["Title"] = "Quản lý dữ liệu chatbot";
+}
+
+<h2>Quản lý dữ liệu chatbot</h2>
+
+<form method="post">
+    Chatbot instruction & Data
+    <textarea asp-for="DataContent" rows="20" style="width:100%"></textarea>
+    <br /><br />
+    Model
+    <textarea asp-for="ModelContent"></textarea>
+    <br /><br />
+    <button type="submit" asp-page-handler="Save">Lưu</button>
+</form>
+@if (TempData["Message"] != null)
+{
+    <p style="color:green">@TempData["Message"]</p>
+}
