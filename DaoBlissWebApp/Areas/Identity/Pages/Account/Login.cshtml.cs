@@ -24,11 +24,12 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
-        {
-            _signInManager = signInManager;
-            _logger = logger;
-        }
+		public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
+		{
+			_signInManager = signInManager;
+			_logger = logger;
+			_userManager = userManager;
+		}
 
 		/// <summary>
 		///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -56,27 +57,28 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 		[TempData]
 		public string ErrorMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
-        {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+		/// <summary>
+		///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+		///     directly from your code. This API may change or be removed in future releases.
+		/// </summary>
+		public class InputModel
+		{
+			/// <summary>
+			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+			///     directly from your code. This API may change or be removed in future releases.
+			/// </summary>
+			[Required(ErrorMessage = "Phải nhập {0}")]
+			//[EmailAddress]
+			[Display(Name = "Phải nhập email hoặc tên tài khoản")]
+			public string UserNameOrEmail { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
+			/// <summary>
+			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+			///     directly from your code. This API may change or be removed in future releases.
+			/// </summary>
+			[Required(ErrorMessage = "Phải nhập {0}")]
+			[DataType(DataType.Password)]
+			public string Password { get; set; }
 
 			/// <summary>
 			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -109,31 +111,47 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 
 			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ModelState.IsValid)
-            {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
-            }
+			if (ModelState.IsValid)
+			{
+				// This doesn't count login failures towards account lockout
+				// To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+				var user = await _userManager.FindByNameAsync(Input.UserNameOrEmail) ?? await _userManager.FindByEmailAsync(Input.UserNameOrEmail);
+
+				if (user == null)
+				{
+					ModelState.AddModelError(string.Empty, "Tài khoản không tồn tại.");
+					return Page();
+				}
+
+				//if (!user.EmailConfirmed)
+				//{
+				//	ModelState.AddModelError(string.Empty, "Tài khoản chưa được xác nhận email. Vui lòng kiểm tra email để xác nhận.");
+				//	return Page();
+				//}
+
+				var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+
+				if (result.Succeeded)
+				{
+					// ng dung nhap username
+					return LocalRedirect(returnUrl);
+				}
+				if (result.RequiresTwoFactor)
+				{
+					return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+				}
+				if (result.IsLockedOut)
+				{
+					_logger.LogWarning("Tài khoản đã bị khóa.");
+					return RedirectToPage("./Lockout");
+				}
+				else
+				{
+					ModelState.AddModelError(string.Empty, "Thất bại, sai mật khẩu");
+					return Page();
+				}
+			}
 
 			// If we got this far, something failed, redisplay form
 			return Page();

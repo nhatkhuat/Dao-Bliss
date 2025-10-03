@@ -124,26 +124,12 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             }
             else
             {
-<<<<<<< HEAD
-
-=======
->>>>>>> Nhat
 				// hệ thống có tk nhưng chưa lket vs gg -> lket tkhoan
 				// chua có tk -> tạo tk, liên kết 
 
 				// If the user does not have an account, then ask the user to create an account.
 				
                 ReturnUrl = returnUrl;
-<<<<<<< HEAD
-                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
-                {
-                    Input = new InputModel
-                    {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
-                    };
-                }
-                return Page();
-=======
 				if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
 				{
 					var email = info.Principal.FindFirstValue(ClaimTypes.Email);
@@ -168,7 +154,6 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 				}
 
 				return Page();
->>>>>>> Nhat
             }
         }
 
@@ -202,11 +187,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 				if ((registeredUser != null) && (externalEmailUser != null))
 				{
 					// xác nhận email luôn nếu chưa xác nhận
-<<<<<<< HEAD
-					if (registeredUser.Id == externalEmailUser.Id)
-=======
 					if (registeredUser.Id.Equals(externalEmailUser.Id))
->>>>>>> Nhat
 					{
 						var resultLink = await _userManager.AddLoginAsync(registeredUser, info);
 						if (resultLink.Succeeded)

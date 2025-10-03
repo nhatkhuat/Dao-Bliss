@@ -92,18 +92,6 @@ namespace DaoBlissWebApp.Services.OrderServices
         <p><strong>Tình trạng: </strong>Chờ xác nhận</p>
         <p><strong>Mã đơn hàng:</strong> {order.OrderNumber}</p>
 
-<<<<<<< HEAD
-			//foreach (var item in details)
-			//{
-			//	sb.Append($@"
-			//             <tr>
-			//                 <td>{item.Name}</td>
-			//                 <td>{item.UnitPrice.ToString("C0", culture)}</td>
-			//                 <td>{item.Quantity}</td>
-			//                 <td>{item.TotalPrice.ToString("C0", culture)}</td>
-			//             </tr>");
-			//}
-=======
         <h3>Thông tin sản phẩm:</h3>
         <table style='width:100%; border-collapse: collapse;'>
             <thead>
@@ -115,7 +103,6 @@ namespace DaoBlissWebApp.Services.OrderServices
                 </tr>
             </thead>
             <tbody>");
->>>>>>> Nhat
 
 			foreach (var item in order.Items)
 			{

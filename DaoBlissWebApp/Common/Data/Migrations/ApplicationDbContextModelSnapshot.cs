@@ -173,14 +173,11 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
-<<<<<<< HEAD
-=======
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
->>>>>>> Nhat
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -190,14 +187,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-<<<<<<< HEAD
-                    b.Property<string>("ProductCategoryName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-=======
->>>>>>> Nhat
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
@@ -417,14 +406,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-<<<<<<< HEAD
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-=======
->>>>>>> Nhat
                     b.Property<int>("ProductVariantId")
                         .HasColumnType("int");
 

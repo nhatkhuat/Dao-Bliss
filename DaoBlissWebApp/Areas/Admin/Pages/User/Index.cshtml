@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿@page "/admin/members"
-=======
 ﻿@page "/admin/users"
->>>>>>> Nhat
 @model DaoBlissWebApp.Areas.Admin.Pages.User.IndexModel
 @{
     ViewData["Title"] = "User list";
@@ -27,17 +23,6 @@
 
                 @if (string.IsNullOrEmpty(user.RoleNames))
                 {
-<<<<<<< HEAD
-                    <a class="text-dark text-decoration-none" asp-page="./AddRole" asp-route-id="@user.Id">+ Add role</a>
-
-                }
-                else
-                {
-                    <a asp-page="./AddRole" asp-route-id="@user.Id">@user.RoleNames</a>
-                }
-
-
-=======
                     <a class="text-dark text-decoration-none" asp-page="./AddRole" asp-route-id="@user.Id">Manage role</a>
                 }
                 else
@@ -52,7 +37,6 @@
                     }
                 }
 
->>>>>>> Nhat
             </td>
             <td>
                 <a class="btn btn-success btn-sm" asp-page="./SetPassword" asp-route-id="@user.Id">Set password</a>

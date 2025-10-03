@@ -187,14 +187,11 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
-<<<<<<< HEAD:DaoBlissWebApp/Common/Data/Migrations/20250826065045_InitialCreate.Designer.cs
-=======
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
->>>>>>> Nhat:DaoBlissWebApp/Common/Data/Migrations/20250829134812_InitialCreate.Designer.cs
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -204,14 +201,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-<<<<<<< HEAD:DaoBlissWebApp/Common/Data/Migrations/20250826065045_InitialCreate.Designer.cs
-                    b.Property<string>("ProductCategoryName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-=======
->>>>>>> Nhat:DaoBlissWebApp/Common/Data/Migrations/20250829134812_InitialCreate.Designer.cs
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
@@ -427,14 +416,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-<<<<<<< HEAD:DaoBlissWebApp/Common/Data/Migrations/20250826065045_InitialCreate.Designer.cs
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-=======
->>>>>>> Nhat:DaoBlissWebApp/Common/Data/Migrations/20250829134812_InitialCreate.Designer.cs
                     b.Property<int>("ProductVariantId")
                         .HasColumnType("int");
 

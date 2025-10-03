@@ -95,17 +95,6 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-<<<<<<< HEAD
-            [Display(Name = "Xác nhân mật khẩu")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-
-			[DataType(DataType.Text)]
-			[Display(Name = "Tài khoản")]
-			[Required(ErrorMessage = "{0} is required")]
-			[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-			public string UserName { get; set; }
-=======
             [Display(Name = "Xác nhận mật khẩu")]
             [Compare("Password", ErrorMessage = "Mật khẩu không khớp.")]
             public string ConfirmPassword { get; set; }
@@ -125,7 +114,6 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 			[StringLength(50)]
 			[Display(Name = "Họ và tên")]
 			public string FirstName { get; set; }
->>>>>>> Nhat
 		}
 
 
@@ -143,17 +131,12 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-<<<<<<< HEAD
-                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-=======
 				user.FirstName = Input.FirstName;
 				user.PhoneNumber = Input.PhoneNumber;
 
 				//await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
 				await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
 				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
->>>>>>> Nhat
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

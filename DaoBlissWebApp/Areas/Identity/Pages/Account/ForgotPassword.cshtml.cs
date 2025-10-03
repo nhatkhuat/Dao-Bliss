@@ -46,7 +46,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Sai định dạng email")]
             public string Email { get; set; }
         }
 

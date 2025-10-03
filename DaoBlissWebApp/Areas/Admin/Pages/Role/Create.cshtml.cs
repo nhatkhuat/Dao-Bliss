@@ -7,11 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DaoBlissWebApp.Areas.Admin.Pages.Role
 {
-<<<<<<< HEAD
-	//[Authorize(Roles = "Admin")]
-=======
 	[Authorize(Roles = "Admin")]
->>>>>>> Nhat
 	public class CreateModel : RolePageModel
 	{
 		public CreateModel(RoleManager<IdentityRole> roleManager) : base(roleManager)
