@@ -14,29 +14,14 @@ namespace DaoBlissWebApp.Services.ProductService
 			_productRepository = productRepository;
 		}
 
-		public async Task AddProductAsync(Product product)
+		public async Task<Product?> GetProductBySlugAsync(string slug)
 		{
-			await _productRepository.AddProductAsync(product);
+			return await _productRepository.GetProductBySlugAsync(slug);
 		}
 
-		public async Task DeleteProductAsync(int id)
+		public async Task<List<Product>> GetAllActiveProductsAsync()
 		{
-			await _productRepository.DeleteProductAsync(id);
-		}
-
-		public async Task<List<Product>> GetAllProductsAsync()
-		{
-			return await _productRepository.GetAllProductsAsync();
-		}
-
-		public async Task<Product?> GetProductByIdAsync(int id)
-		{
-			return await _productRepository.GetProductByIdAsync(id);
-		}
-
-		public async Task<List<Product>> GetProductsByCategoriesAsync(List<int> categoryIds)
-		{
-			return await _productRepository.GetProductsByCategoriesAsync(categoryIds);
+			return await _productRepository.GetAllActiveProductsAsync();
 		}
 
 		public async Task<List<Product>> SearchProductsAsync(string searchTerm)
@@ -44,30 +29,40 @@ namespace DaoBlissWebApp.Services.ProductService
 			return await _productRepository.SearchProductsAsync(searchTerm);
 		}
 
-		public async Task UpdateProductAsync(Product product)
+		public async Task<List<Product>> GetRelatedProductsAsync(int productId, int take = 4)
 		{
-			await _productRepository.UpdateProductAsync(product);
+			return await _productRepository.GetRelatedProductsAsync(productId, take);
 		}
 
-		public async Task<List<Category>> GetAllCategoriesAsync()
+		public async Task AddReviewAsync(ProductReview review)
 		{
-			return await _productRepository.GetAllCategoriesAsync();
+			await _productRepository.AddProductReviewAsync(review);
 		}
 
-		public async Task<List<Size>> GetAllSizesAsync()
+		public async Task<ProductVariant?> GetProductVariantByIdAsync(int id)
 		{
-			return await _productRepository.GetAllSizesAsync();
+			return await _productRepository.GetProductVariantByIdAsync(id);
 		}
 
-
-		public async Task<ProductVariant?> GetProductVariantAsync(int productVariantId)
+		public async Task<List<ProductVariant>> GetVariantsByIdsAsync(List<int> variantIds)
 		{
-			return await _productRepository.GetProductVariantAsync(productVariantId);
+			var variants = new List<ProductVariant>();
+			foreach (var id in variantIds)
+			{
+				var variant = await GetProductVariantByIdAsync(id);
+				if (variant != null) variants.Add(variant);
+			}
+			return variants;
 		}
 
-		public async Task UpdateProductVariantAsync(ProductVariant productVariant)
+		public async Task UpdateVariantStockAsync(int variantId, int quantityChange)
 		{
-			await _productRepository.UpdateProductVariantAsync(productVariant);
+			var variant = await GetProductVariantByIdAsync(variantId);
+			if (variant != null)
+			{
+				variant.Stock += quantityChange;
+				await _productRepository.UpdateProductVariantAsync(variant);
+			}
 		}
 	}
 }

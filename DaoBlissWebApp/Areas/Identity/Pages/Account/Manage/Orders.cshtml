@@ -1,0 +1,79 @@
+﻿@page "/user/orders"
+@model DaoBlissWebApp.Areas.Identity.Pages.Account.Manage.OrdersModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = "Orders";
+}
+
+<div class="w-full px-4 sm:px-6 py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+            <partial name="_ManageNav" />
+            <div class="flex-1">
+                <div id="orders-section" class="bg-white rounded-lg shadow-sm border p-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Danh sách đơn hàng</h2>
+                    <div class="space-y-4">
+                        @if (Model.Orders.Any())
+                        {
+                            @foreach (var order in Model.Orders)
+                            {
+                                <a asp-page="./OrderDetail" asp-route-orderId="@order.OrderNumber">
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer order-item">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div>
+                                                <p class="font-medium text-green-500 hover:text-green-800">Mã đơn hàng: @order.OrderNumber</p>
+                                                <div class="text-sm text-gray-600">Ngày đặt: @order.CreatedAt.ToString("dd/MM/yyyy")</div>
+                                            </div>
+                                            @{
+                                                var statusMap = new Dictionary<string, (string Text, string Css)>
+                                                                                                                                                                        {
+                                            { "Pending", ("Chờ xử lý", "bg-yellow-100 text-yellow-800") },
+                                            { "Processing", ("Đang đóng hàng", "bg-blue-100 text-blue-800") },
+                                            { "Shipped", ("Đã giao hàng", "bg-green-100 text-green-800") },
+                                            { "Completed", ("Hoàn tất", "bg-teal-100 text-teal-800") },
+                                            { "Cancelled", ("Hủy đơn", "bg-red-100 text-red-800") },
+                                            { "Returned", ("Hoàn hàng", "bg-orange-100 text-orange-800") }
+                                            };
+
+                                                var status = order.Status;
+                                                var (statusText, statusClass) = statusMap.ContainsKey(status)
+                                                    ? statusMap[status]
+                                                    : ("Không xác định", "bg-gray-100 text-gray-800");
+                                            }
+                                            <span class="px-3 py-1 text-xs rounded-full @statusClass">
+                                                @statusText
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-gray-600 mb-2">
+                                            <div class="w-4 h-4 flex items-center justify-center inline-block mr-2">
+                                                <i class="ri-map-pin-line"></i>
+                                            </div>
+                                            @order.ShippingAddress, @order.ShippingWard, @order.ShippingDistrict, @order.ShippingCity
+                                        </div>
+                                        <div class="text-sm text-gray-600 mb-3">
+                                            @string.Join(", ", order.Items.Select(item => item.Name))
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="text-sm text-gray-600">@order.Items.Count sản phẩm</div>
+                                            <div class="font-semibold text-green-500">@order.Total.ToString("N0") VNĐ</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-gray-600 text-sm">Bạn chưa có đơn hàng nào.</p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

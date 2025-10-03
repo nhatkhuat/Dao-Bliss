@@ -42,9 +42,9 @@ namespace DaoBlissWebApp.Common.Entities
 		public DateTime EndDate { get; set; }
 
 		public bool IsActive { get; set; } = true;
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 		[ForeignKey("MinRankId")]
-		public CustomerRank MinRank { get; set; }
+		public CustomerRank? MinRank { get; set; }
 	}
 }

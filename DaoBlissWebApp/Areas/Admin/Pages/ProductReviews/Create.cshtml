@@ -1,0 +1,60 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.ProductReviews.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProductReview</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ProductReview.ProductId" class="control-label"></label>
+                <select asp-for="ProductReview.ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ProductReview.UserId" class="control-label"></label>
+                <select asp-for="ProductReview.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ProductReview.Rating" class="control-label"></label>
+                <input asp-for="ProductReview.Rating" class="form-control" />
+                <span asp-validation-for="ProductReview.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductReview.Comment" class="control-label"></label>
+                <input asp-for="ProductReview.Comment" class="form-control" />
+                <span asp-validation-for="ProductReview.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ProductReview.IsApproved" /> @Html.DisplayNameFor(model => model.ProductReview.IsApproved)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductReview.CreatedAt" class="control-label"></label>
+                <input asp-for="ProductReview.CreatedAt" class="form-control" />
+                <span asp-validation-for="ProductReview.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

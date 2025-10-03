@@ -35,7 +35,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
         {
             if (userId == null || code == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -50,7 +50,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 			if (result.Succeeded)
 			{
 				await _signInManager.SignInAsync(user, isPersistent: false);
-				RedirectToPage("/Index");
+				RedirectToPage("/");
 			}
 			else
 			{

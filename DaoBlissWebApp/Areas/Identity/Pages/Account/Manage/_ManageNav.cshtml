@@ -1,14 +1,107 @@
 ﻿@using DaoBlissWebApp.Common.Entities
-@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
-    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var currentPage = ViewContext.ViewData["ActivePage"] as string ?? "";
+    var user = await UserManager.GetUserAsync(User);
+    var roles = user != null ? await UserManager.GetRolesAsync(user) : new List<string>();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
-    {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
-    }
-</ul>
+
+<div class="w-full sm:w-64 flex-shrink-0">
+    <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <!-- Mobile Menu Toggle -->
+        <div class="flex items-center justify-between sm:hidden mb-4">
+            <div class="text-sm font-medium text-gray-600">Menu</div>
+            <button id="nav-toggle" class="text-gray-600 hover:text-primary focus:outline-none">
+                <i class="ri-menu-line text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Navigation Content -->
+        <div id="nav-content" class="hidden sm:block">
+            <div class="text-center mb-4 sm:mb-6">
+                <div class="text-sm text-gray-600 mb-1">Xin chào,</div>
+                <div class="font-semibold text-gray-900 text-base sm:text-lg">@(user?.FirstName ?? user?.UserName ?? "Khách")</div>
+            </div>
+
+            <nav class="space-y-1">
+                <a asp-page="./Index"
+                   class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md
+                          @(currentPage == "Index" ? "text-primary bg-yellow-50 border-l-4 border-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary")">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-emotion-happy-line text-sm"></i>
+                    </div>
+                    <span class="text-sm">Thông tin cá nhân</span>
+                </a>
+                <a asp-page="./Email"
+                   class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md
+                          @(currentPage == "Email" ? "text-primary bg-yellow-50 border-l-4 border-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary")">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-mail-line text-sm"></i>
+                    </div>
+                    <span class="text-sm">Email</span>
+                </a>
+                <a asp-page="./ChangePassword"
+                   class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md
+                          @(currentPage == "ChangePassword" ? "text-primary bg-yellow-50 border-l-4 border-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary")">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-lock-password-line text-sm"></i>
+                    </div>
+                    <span class="text-sm">Password</span>
+                </a>
+                <a asp-page="./Orders"
+                   class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md
+                          @(currentPage == "Orders" ? "text-primary bg-yellow-50 border-l-4 border-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary")">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-file-list-line text-sm"></i>
+                    </div>
+                    <span class="text-sm">Danh sách đơn hàng</span>
+                </a>
+                @*<a asp-page="./Membership"
+                       class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md
+                              @(currentPage == "Membership" ? "text-primary bg-yellow-50 border-l-4 border-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary")">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-vip-crown-line text-sm"></i>
+                        </div>
+                        <span class="text-sm">Hạng thành viên</span>
+                    </a>*@
+                @if (roles.Contains("Admin"))
+                {
+                    <a href="/admin/dashboard"
+                       class="profile-nav-item flex items-center space-x-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-primary">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-vip-crown-line text-sm"></i>
+                        </div>
+                        <span class="text-sm">Dashboard</span>
+                    </a>
+                }
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navToggle = document.getElementById('nav-toggle');
+        const navContent = document.getElementById('nav-content');
+
+        navToggle.addEventListener('click', function () {
+            navContent.classList.toggle('hidden');
+            const icon = navToggle.querySelector('i');
+            icon.classList.toggle('ri-menu-line');
+            icon.classList.toggle('ri-close-line');
+        });
+
+        // Close menu when clicking a nav link on mobile
+        document.querySelectorAll('.profile-nav-item').forEach(link => {
+            link.addEventListener('click', function () {
+                if (window.innerWidth < 640) { // Tailwind sm breakpoint
+                    navContent.classList.add('hidden');
+                    navToggle.querySelector('i').classList.add('ri-menu-line');
+                    navToggle.querySelector('i').classList.remove('ri-close-line');
+                }
+            });
+        });
+    });
+</script>

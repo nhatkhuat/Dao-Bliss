@@ -19,14 +19,11 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
 		<PackageReference Include="MimeKit" Version="4.13.0" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Areas\Admin\Pages\Dashboard\" />
 	</ItemGroup>
 </Project>

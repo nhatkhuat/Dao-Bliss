@@ -1,0 +1,43 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.ProductImages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ProductImage</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductImage.ImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductImage.ImageUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductImage.AltText)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductImage.AltText)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductImage.IsMain)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductImage.IsMain)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductImage.Product)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductImage.Product.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ProductImage.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

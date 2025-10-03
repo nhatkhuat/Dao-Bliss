@@ -1,0 +1,97 @@
+﻿@page "{slug}"
+@model DaoBlissWebApp.Pages.BlogDetailModel
+@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div id="blog-detail" class="px-4 py-12 bg-yellow-50">
+    <div class="max-w-4xl mx-auto">
+        <a class="flex items-center gap-2 text-primary hover:underline mb-6" asp-page="Blogs">
+            <div class="w-4 h-4 flex items-center justify-center">
+                <i class="ri-arrow-left-line"></i>
+            </div>
+            <span>Quay lại danh sách</span>
+        </a>
+
+        <article>
+            <div class="mb-8">
+                <img id="detail-hero-image" src="@Model.Article.ImageUrl" alt="@Model.Article.Title" class="w-full h-80 object-cover rounded-lg">
+            </div>
+
+            <div class="mb-6">
+                <h1 id="detail-title" class="text-3xl font-bold text-gray-900 mb-4">@Model.Article.Title</h1>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-calendar-line"></i>
+                        </div>
+                        <span>@Model.Article.CreatedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("vi-VN"))</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="detail-content" class="prose prose-lg max-w-none">
+                @Html.Raw(Model.Article.Content)
+            </div>
+        </article>
+        @*<div class="bg-gray-50 rounded-lg p-6 mt-8">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bài viết liên quan</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg p-4">
+                    <img src="https://readdy.ai/api/search-image?query=dao%20red%20traditional%20medicine%20herbal%20remedies%20mountain%20culture%20ethnic%20healing%20practices%20natural%20herbs%20vietnam%20cultural%20heritage&width=200&height=120&seq=8&orientation=landscape" alt="Y học cổ truyền" class="w-full h-24 object-cover rounded mb-3">
+                    <h4 class="font-medium text-gray-900 mb-2">Y học cổ truyền Dao Đỏ</h4>
+                    <p class="text-sm text-gray-600">Khám phá kho tàng y học truyền thống...</p>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <img src="https://readdy.ai/api/search-image?query=medicinal%20plants%20mountain%20herbs%20dao%20red%20culture%20traditional%20healing%20natural%20remedies%20botanical%20photography%20vietnam%20ethnic%20minority&width=200&height=120&seq=9&orientation=landscape" alt="Thảo dược núi rừng" class="w-full h-24 object-cover rounded mb-3">
+                    <h4 class="font-medium text-gray-900 mb-2">Thảo dược núi rừng</h4>
+                    <p class="text-sm text-gray-600">Những loại thảo dược quý hiếm...</p>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <img src="https://readdy.ai/api/search-image?query=dao%20red%20women%20traditional%20clothing%20cultural%20practices%20ethnic%20heritage%20mountain%20village%20vietnam%20authentic%20lifestyle&width=200&height=120&seq=10&orientation=landscape" alt="Văn hóa Dao Đỏ" class="w-full h-24 object-cover rounded mb-3">
+                    <h4 class="font-medium text-gray-900 mb-2">Văn hóa Dao Đỏ</h4>
+                    <p class="text-sm text-gray-600">Bản sắc văn hóa độc đáo...</p>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.3/dist/tailwind.min.css" />
+<style>
+    .bg-gradient {
+        background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+    }
+
+    .prose img {
+        width: 100%;
+        height: 16rem; /* h-64 = 16rem */
+        object-fit: cover;
+        border-radius: 0.5rem; /* rounded-lg */
+        margin-top: 2rem; /* my-8 */
+        margin-bottom: 2rem;
+    }
+
+    .prose h2 {
+        font-size: 1.5rem; /* text-2xl */
+        font-weight: 700; /* font-bold */
+        color: #1f2937; /* text-gray-900 */
+        margin-bottom: 1rem; /* mb-4 */
+    }
+
+    .prose p {
+        color: #4b5563; /* text-gray-700 */
+        line-height: 1.75; /* leading-relaxed */
+        margin-bottom: 1.5rem; /* mb-6 */
+    }
+
+    .prose .bg-green-50 {
+        border-left-width: 4px;
+        border-color: #10b981; /* border-green-500 */
+        padding: 1.5rem; /* p-6 */
+        margin-top: 2rem; /* my-8 */
+        margin-bottom: 2rem;
+        background-color: #f0fdf4; /* bg-green-50 */
+    }
+</style>

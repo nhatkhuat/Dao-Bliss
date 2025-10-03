@@ -1,0 +1,312 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.Orders.EditModel
+
+@{
+    ViewData["Title"] = "Edit order";
+}
+
+<header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
+    <div class="flex items-center justify-between px-6 py-4">
+        <button class="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors !rounded-button whitespace-nowrap">
+            <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-arrow-left-line"></i>
+            </div>
+            <a asp-page="./Index">Quay lại</a>
+        </button>
+        <h1 class="text-lg font-semibold text-gray-900">Chỉnh sửa đơn hàng #@Model.Order.OrderNumber</h1>
+    </div>
+</header>
+
+<main class="pt-20 pb-8 px-6 max-w-6xl mx-auto">
+    <div class="space-y-6">
+        <form method="post">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Trạng thái đơn hàng</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Trạng thái giao hàng</label>
+                        <select name="Order.Status"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8">
+                            @foreach (var status in Enum.GetValues(typeof(DaoBlissWebApp.Common.Enums.OrderStatus)))
+                            {
+                                var enumValue = status.ToString();
+
+                                <option value="@enumValue" selected="@(Model.Order.Status == enumValue ? "selected" : null)">
+                                    @enumValue
+                                </option>
+                            }
+                        </select>
+
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Trạng thái thanh toán @Model.Order.PaymentMethod</label>
+                        <select name="Order.PaymentStatus"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8">
+                            @foreach (var status in Enum.GetValues(typeof(DaoBlissWebApp.Common.Enums.PaymentStatus)))
+                            {
+                                var enumValue = status.ToString();
+
+                                <option value="@enumValue" selected="@(Model.Order.PaymentStatus == enumValue ? "selected" : null)">
+                                    @enumValue
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="text-sm text-gray-500 space-y-1">
+                    <p>Thời gian tạo: @Model.Order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+                    <p>Cập nhật cuối: @Model.Order.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Thông tin khách hàng</h2>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Họ và tên</label>
+                            <input type="text" asp-for="Order.ShippingFullName" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Số điện thoại</label>
+                            <input type="tel" asp-for="Order.ShippingPhoneNumber" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" asp-for="Order.ShippingEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Địa chỉ chi tiết</label>
+                        <textarea rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary" asp-for="Order.ShippingAddress">@Model.Order.ShippingAddress</textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phường/Xã:</label>
+                            <label class="block text-sm font-medium text-red-700 mb-2">@Model.Order.ShippingWard</label>
+                            <input type="hidden" asp-for="Order.ShippingWard" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Quận/Huyện:</label>
+                            <label class="block text-sm font-medium text-red-700 mb-2">@Model.Order.ShippingDistrict</label>
+                            <input type="hidden" asp-for="Order.ShippingDistrict" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tỉnh/Thành phố:</label>
+                            <label class="block text-sm font-medium text-red-700 mb-2">@Model.Order.ShippingCity</label>
+                            <input type="hidden" asp-for="Order.ShippingCity" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ghi chú của khách hàng</label>
+                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary">@Model.Order.Notes</textarea>
+                    </div>
+                    <input type="hidden" asp-for="Order.Notes" />
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Chi tiết đơn hàng</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="border-b border-gray-200">
+                            <tr>
+                                <th class="text-left py-3 px-2 text-sm font-medium text-gray-700">Sản phẩm</th>
+                                <th class="text-center py-3 px-2 text-sm font-medium text-gray-700 w-24">Số lượng</th>
+                                <th class="text-right py-3 px-2 text-sm font-medium text-gray-700 w-32">Đơn giá</th>
+                                <th class="text-right py-3 px-2 text-sm font-medium text-gray-700 w-32">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            @foreach (OrderItem item in Model.Order.Items)
+                            {
+                                <tr>
+                                    <td class="py-4 px-2">
+                                        <div class="flex items-center gap-3">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">@item.Name</p>
+                                                <p class="text-xs text-gray-500">@item.ProductVariant?.Size?.Name@item.ProductVariant?.Size?.Unit</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-2 text-center">
+                                        @item.Quantity
+                                    </td>
+                                    <td class="py-4 px-2 text-right text-sm text-gray-900">@item.Price.ToString("N0")₫</td>
+                                    <td class="py-4 px-2 text-right text-sm font-medium text-gray-900">@item.Total.ToString("N0")₫</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="flex justify-end">
+                        <div class="w-80 space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Tổng tiền hàng:</span>
+                                <span class="text-gray-900">@Model.Order.SubTotal.ToString("N0")₫</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Phí vận chuyển:</span>
+                                <span class="text-gray-900">@Model.Order.ShippingFee.ToString("N0")₫</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Giảm giá:</span>
+                                <span class="text-red-600">-@Model.Order.Discount.ToString("N0")₫</span>
+                            </div>
+                            <div class="flex justify-between text-base font-semibold pt-2 border-t border-gray-200">
+                                <span class="text-gray-900">Tổng thanh toán:</span>
+                                <span class="text-primary">@Model.Order.Total.ToString("N0")₫</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Order.UserId" />
+            <input type="hidden" asp-for="Order.Id" />
+            <input asp-for="Order.CreatedAt" type="hidden" />
+            <input asp-for="Order.UpdatedAt" type="hidden" />
+            <input asp-for="Order.Total" type="hidden" />
+            <input asp-for="Order.ShippingFee" type="hidden" />
+            <input asp-for="Order.Discount" type="hidden" />
+            <input asp-for="Order.SubTotal" type="hidden" />
+            <input asp-for="Order.OrderNumber" type="hidden" />
+            <input asp-for="Order.PaymentMethod" type="hidden" />
+            <div class="flex gap-3 mt-6 pt-4 border-t border-gray-200">
+                <button type="submit" class="bg-primary text-white px-6 py-2 text-sm font-medium hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap">
+                    Lưu thay đổi
+                </button>
+                <button type="reset" class="border border-gray-300 text-gray-700 px-6 py-2 text-sm font-medium hover:bg-gray-50 transition-colors !rounded-button whitespace-nowrap">
+                    Đặt lại
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+
+@*<h4>Order</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+                <input type="hidden" asp-for="Order.Id" />
+                <div class="form-group">
+                    <label asp-for="Order.UserId" class="control-label"></label>
+                    <select asp-for="Order.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                    <span asp-validation-for="Order.UserId" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.OrderNumber" class="control-label"></label>
+                    <input asp-for="Order.OrderNumber" class="form-control" />
+                    <span asp-validation-for="Order.OrderNumber" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.Status" class="control-label"></label>
+                    <input asp-for="Order.Status" class="form-control" />
+                    <span asp-validation-for="Order.Status" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.PaymentStatus" class="control-label"></label>
+                    <input asp-for="Order.PaymentStatus" class="form-control" />
+                    <span asp-validation-for="Order.PaymentStatus" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.PaymentMethod" class="control-label"></label>
+                    <input asp-for="Order.PaymentMethod" class="form-control" />
+                    <span asp-validation-for="Order.PaymentMethod" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingFullName" class="control-label"></label>
+                    <input asp-for="Order.ShippingFullName" class="form-control" />
+                    <span asp-validation-for="Order.ShippingFullName" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingPhoneNumber" class="control-label"></label>
+                    <input asp-for="Order.ShippingPhoneNumber" class="form-control" />
+                    <span asp-validation-for="Order.ShippingPhoneNumber" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingAddress" class="control-label"></label>
+                    <input asp-for="Order.ShippingAddress" class="form-control" />
+                    <span asp-validation-for="Order.ShippingAddress" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingCity" class="control-label"></label>
+                    <input asp-for="Order.ShippingCity" class="form-control" />
+                    <span asp-validation-for="Order.ShippingCity" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingDistrict" class="control-label"></label>
+                    <input asp-for="Order.ShippingDistrict" class="form-control" />
+                    <span asp-validation-for="Order.ShippingDistrict" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingWard" class="control-label"></label>
+                    <input asp-for="Order.ShippingWard" class="form-control" />
+                    <span asp-validation-for="Order.ShippingWard" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.ShippingEmail" class="control-label"></label>
+                    <input asp-for="Order.ShippingEmail" class="form-control" />
+                    <span asp-validation-for="Order.ShippingEmail" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.SubTotal" class="control-label"></label>
+                    <input asp-for="Order.SubTotal" class="form-control" />
+                    <span asp-validation-for="Order.SubTotal" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.ShippingFee" class="control-label"></label>
+                    <input asp-for="Order.ShippingFee" class="form-control" />
+                    <span asp-validation-for="Order.ShippingFee" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.Discount" class="control-label"></label>
+                    <input asp-for="Order.Discount" class="form-control" />
+                    <span asp-validation-for="Order.Discount" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <span class="text-red-500 text-sm">*</span>
+                    <label asp-for="Order.Total" class="control-label"></label>
+                    <input asp-for="Order.Total" class="form-control" />
+                    <span asp-validation-for="Order.Total" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.Notes" class="control-label"></label>
+                    <input asp-for="Order.Notes" class="form-control" />
+                    <span asp-validation-for="Order.Notes" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.CreatedAt" class="control-label"></label>
+                    <input asp-for="Order.CreatedAt" class="form-control" />
+                    <span asp-validation-for="Order.CreatedAt" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order.UpdatedAt" class="control-label"></label>
+                    <input asp-for="Order.UpdatedAt" class="form-control" />
+                    <span asp-validation-for="Order.UpdatedAt" class="text-red-500 text-sm"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>*@

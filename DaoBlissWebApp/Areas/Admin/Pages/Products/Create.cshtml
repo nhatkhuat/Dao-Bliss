@@ -1,0 +1,60 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.Products.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Description" class="control-label"></label>
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-red-500 text-sm">*</span>
+                <label asp-for="Product.CategoryId" class="control-label"></label>
+                <select asp-for="Product.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Product.IsActive" /> @Html.DisplayNameFor(model => model.Product.IsActive)
+                </label>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Product.CreatedAt" class="control-label"></label>
+                <input asp-for="Product.CreatedAt" class="form-control" />
+                <span asp-validation-for="Product.CreatedAt" class="text-red-500 text-sm"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.UpdatedAt" class="control-label"></label>
+                <input asp-for="Product.UpdatedAt" class="form-control" />
+                <span asp-validation-for="Product.UpdatedAt" class="text-red-500 text-sm"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

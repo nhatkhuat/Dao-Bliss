@@ -123,31 +123,23 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AuthorId")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("ntext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FeaturedImageUrl")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool>("IsHot")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("PublishedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -167,12 +159,9 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Articles");
                 });
@@ -185,6 +174,11 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -192,11 +186,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ProductCategoryName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("CategoryId");
 
@@ -318,7 +307,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
@@ -351,6 +339,11 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ShippingEmail")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<decimal>("ShippingFee")
                         .HasColumnType("decimal(18,2)");
@@ -402,16 +395,16 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("ProductVariantId")
                         .HasColumnType("int");
@@ -452,7 +445,7 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("ntext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -461,6 +454,9 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -481,7 +477,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AltText")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -490,13 +485,10 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool>("IsMain")
+                    b.Property<bool?>("IsMain")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -516,7 +508,7 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("ntext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -524,30 +516,17 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -826,11 +805,9 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
             modelBuilder.Entity("DaoBlissWebApp.Common.Entities.Article", b =>
                 {
-                    b.HasOne("DaoBlissWebApp.Common.Entities.ApplicationUser", "Author")
+                    b.HasOne("DaoBlissWebApp.Common.Entities.ApplicationUser", null)
                         .WithMany("Articles")
-                        .HasForeignKey("AuthorId");
-
-                    b.Navigation("Author");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("DaoBlissWebApp.Common.Entities.Coupon", b =>
@@ -895,10 +872,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
 
             modelBuilder.Entity("DaoBlissWebApp.Common.Entities.ProductReview", b =>
                 {
-                    b.HasOne("DaoBlissWebApp.Common.Entities.Order", "Order")
-                        .WithMany("Reviews")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("DaoBlissWebApp.Common.Entities.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("ProductId")
@@ -910,8 +883,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
 
@@ -1025,8 +996,6 @@ namespace DaoBlissWebApp.Common.Data.Migrations
             modelBuilder.Entity("DaoBlissWebApp.Common.Entities.Order", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("DaoBlissWebApp.Common.Entities.Product", b =>

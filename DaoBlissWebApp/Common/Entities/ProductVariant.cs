@@ -33,10 +33,10 @@ namespace DaoBlissWebApp.Common.Entities
 
 		// Navigation Properties
 		[ForeignKey("ProductId")]
-		public Product Product { get; set; }
+		public Product? Product { get; set; }
 
 		[ForeignKey("SizeId")]
-		public Size Size { get; set; }
+		public Size? Size { get; set; }
 
 		public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 	}

@@ -112,7 +112,9 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
-                return Page();
+				TempData["ToastType"] = "error";
+				TempData["ToastMessage"] = "Có lỗi, vui lòng thử lại!";
+				return Page();
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -128,15 +130,17 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                    "Xác nhận email của bạn",
+                    $"Vui lòng xác nhận email bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>nhấn vào đây</a>.");
+				
+                TempData["ToastType"] = "info";
+				TempData["ToastMessage"] = "Link xác nhận đã được gửi tới email của bạn. Vui lòng kiểm tra email.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
-            return RedirectToPage();
+			TempData["ToastType"] = "success";
+			TempData["ToastMessage"] = "Email đã được cập nhật";
+			return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()

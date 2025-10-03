@@ -5,17 +5,13 @@ namespace DaoBlissWebApp.Interfaces.Services
 {
 	public interface IProductService
 	{
-		Task<Product?> GetProductByIdAsync(int id);
-		Task<List<Product>> GetAllProductsAsync();
-		Task AddProductAsync(Product product);
-		Task UpdateProductAsync(Product product);
-		Task DeleteProductAsync(int id);
-		Task<List<Product>> GetProductsByCategoriesAsync(List<int> categoryIds);
+		Task<Product?> GetProductBySlugAsync(string slug);
+		Task<List<Product>> GetAllActiveProductsAsync();
 		Task<List<Product>> SearchProductsAsync(string searchTerm);
-		Task<List<Category>> GetAllCategoriesAsync();
-		Task<List<Size>> GetAllSizesAsync();
-
-		Task<ProductVariant?> GetProductVariantAsync(int productVariantId);
-		Task UpdateProductVariantAsync(ProductVariant productVariant);
+		Task<List<Product>> GetRelatedProductsAsync(int productId, int take = 4);
+		Task AddReviewAsync(ProductReview review);
+		Task<ProductVariant?> GetProductVariantByIdAsync(int id);
+		Task<List<ProductVariant>> GetVariantsByIdsAsync(List<int> variantIds);
+		Task UpdateVariantStockAsync(int variantId, int quantityChange);
 	}
 }

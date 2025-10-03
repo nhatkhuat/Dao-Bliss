@@ -1,0 +1,49 @@
+﻿.hero-section {
+    background-image: url('https://res.cloudinary.com/dsvasaqr8/image/upload/f_auto,q_auto,w_auto/v1756538266/LandingPageImage_qf4jah.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Disable parallax on mobile for performance */
+@media (max-width: 639px) {
+    .hero-section {
+        background-attachment: scroll;
+        background-position: center top;
+    }
+}
+
+/* Subtle parallax effect for images */
+.parallax-img {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    transition: background-position 0.3s ease;
+}
+
+/* Disable parallax on mobile for performance */
+@media (max-width: 639px) {
+    .parallax-img {
+        background-attachment: scroll;
+        background-position: center top;
+    }
+}
+
+/* Smooth hover scale for cards */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+/* Button hover effect */
+.btn-hover {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .btn-hover:hover {
+        transform: scale(1.05);
+    }

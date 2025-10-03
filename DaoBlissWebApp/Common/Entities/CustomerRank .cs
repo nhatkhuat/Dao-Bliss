@@ -18,7 +18,7 @@ namespace DaoBlissWebApp.Common.Entities
 		public decimal MinSpentAmount { get; set; }
 		public int SortOrder { get; set; }
 		public bool IsActive { get; set; } = true;
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 		// Navigation Properties
 		public ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();

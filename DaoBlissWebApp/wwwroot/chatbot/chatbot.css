@@ -25,7 +25,7 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #1E90FF;
+    background: #166534;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
 }
@@ -75,7 +75,7 @@ body.show-chatbot .chatbot-popup {
     display: flex;
     align-items: center;
     padding: 15px 22px;
-    background: #1E90FF;
+    background: #166534;
     justify-content: space-between;
 }
 
@@ -89,7 +89,7 @@ body.show-chatbot .chatbot-popup {
     width: 35px;
     height: 35px;
     padding: 6px;
-    fill: #1E90FF;
+    fill: #166534;
     flex-shrink: 0;
     background: #fff;
     border-radius: 50%;
@@ -116,9 +116,9 @@ body.show-chatbot .chatbot-popup {
     transition: 0.2s ease;
 }
 
-.chat-header #close-chatbot:hover {
-    background: #4169E1;
-}
+    .chat-header #close-chatbot:hover {
+        background: #7acf9d;
+    }
 
 .chat-body {
     padding: 25px 22px;
@@ -152,7 +152,7 @@ body.show-chatbot .chatbot-popup {
     margin-bottom: 2px;
     align-self: flex-end;
     border-radius: 50%;
-    background: #1E90FF;
+    background: #166534;
 }
 
 .chat-body .message .message-text {
@@ -177,7 +177,7 @@ body.show-chatbot .chatbot-popup {
 
 .chat-body .user-message .message-text {
     color: #fff;
-    background: #1E90FF;
+    background: #166534;
     border-radius: 13px 13px 3px 13px;
 }
 
@@ -251,7 +251,7 @@ body.show-chatbot .chatbot-popup {
 }
 
 .chat-form:focus-within {
-    outline: 2px solid #1E90FF;
+    outline: 2px solid #166534;
 }
 
 .chat-form .message-input {
@@ -298,7 +298,7 @@ body.show-emoji-picker .chat-controls #emoji-picker {
 .chat-form .chat-controls #send-message {
     color: #fff;
     display: none;
-    background: #1E90FF;
+    background: #166534;
 }
 
 .chat-form .chat-controls #send-message:hover {
@@ -388,4 +388,24 @@ body.show-emoji-picker em-emoji-picker {
     .chat-form .file-upload-wrapper.file-uploaded #file-cancel {
         opacity: 0;
     }
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(22, 101, 52, 0.7);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 15px 10px rgba(22, 101, 52, 0.5);
+        transform: scale(1.1);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(22, 101, 52, 0.7);
+        transform: scale(1);
+    }
+}
+
+#chatbot-toggler {
+    animation: pulse 2s infinite;
 }

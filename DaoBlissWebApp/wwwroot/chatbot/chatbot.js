@@ -44,7 +44,6 @@ const generateBotResponse = async (incomingMessageDiv) => {
         console.log("Response status:", response.status);
         console.log("Response headers:", [...response.headers.entries()]);
 
-        // Kiểm tra response text trước khi parse JSON
         const responseText = await response.text();
         console.log("Response text:", responseText);
 

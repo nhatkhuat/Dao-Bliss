@@ -75,13 +75,23 @@ namespace DaoBlissWebApp.Data
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 		{
 			// Auto update UpdatedAt timestamp
-			var entries = ChangeTracker.Entries()
-				.Where(e => e.State == EntityState.Modified &&
-						   e.Entity.GetType().GetProperty("UpdatedAt") != null);
+			var entries = ChangeTracker
+					.Entries()
+					.Where(e => e.Entity is Product &&
+				   (e.State == EntityState.Added || e.State == EntityState.Modified));
 
-			foreach (var entry in entries)
+			foreach (var entityEntry in entries)
 			{
-				entry.Property("UpdatedAt").CurrentValue = DateTime.UtcNow;
+				if (entityEntry.State == EntityState.Added)
+				{
+					((Product)entityEntry.Entity).CreatedAt = DateTime.Now;
+					((Product)entityEntry.Entity).UpdatedAt = DateTime.Now;
+				}
+				else if (entityEntry.State == EntityState.Modified)
+				{
+					entityEntry.Property("CreatedAt").IsModified = false; // không sửa CreatedAt
+					((Product)entityEntry.Entity).UpdatedAt = DateTime.Now;
+				}
 			}
 
 			return base.SaveChangesAsync(cancellationToken);

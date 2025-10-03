@@ -53,7 +53,9 @@ namespace DaoBlissWebApp.Pages
 			try
 			{
 				var filePath = Path.Combine(_env.WebRootPath, "chatbot", "data.txt");
+				var chatBotModel = Path.Combine(_env.WebRootPath, "chatbot", "chatbotmodel.txt");
 				string context = System.IO.File.Exists(filePath) ? await System.IO.File.ReadAllTextAsync(filePath) : "";
+				string model = System.IO.File.Exists(chatBotModel) ? await System.IO.File.ReadAllTextAsync(chatBotModel) : "";
 				string systemInstruction = context;
 
 				var client = _httpClientFactory.CreateClient("Gemini");
@@ -62,7 +64,7 @@ namespace DaoBlissWebApp.Pages
 					contents = new[]{
 						new
 				{
-						role = "user", // hoặc "system" nếu bạn muốn coi đây là hướng dẫn hệ thống
+						role = "user", 
 						parts = new[] { new { text = systemInstruction } }
 				}}
 				.Concat(request.ChatHistory.TakeLast(3).Select(msg => new{
@@ -71,9 +73,8 @@ namespace DaoBlissWebApp.Pages
 				).ToArray()
 				};
 
-
 				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-				var response = await client.PostAsync($"v1beta/models/gemini-1.5-flash:generateContent?key={_apiKey}", content);
+				var response = await client.PostAsync($"v1beta/models/{model}:generateContent?key={_apiKey}", content);
 
 				if (!response.IsSuccessStatusCode)
 				{

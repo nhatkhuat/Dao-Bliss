@@ -55,26 +55,22 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone(ErrorMessage = "Wrong {0} format")]
+			/// <summary>
+			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+			///     directly from your code. This API may change or be removed in future releases.
+			/// </summary>
+			[Required]
+            [Phone(ErrorMessage = "Sai định dạng số điện thoại")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 			[Required]
 			[StringLength(50)]
-			[Display(Name = "FirstName")]
+			[Display(Name = "Họ Tên")]
 			public string FirstName { get; set; }
-			[Required]
-			[StringLength(50)]
-			[Display(Name = "LastName")]
-			public string LastName { get; set; }
-			[Required]
-			[Display(Name = "Gender")]
+
+			[Display(Name = "Giới tính")]
 			public bool? Gender { get; set; }
-            [Required]
-			[Display(Name = "Birthdate")]
+			[Display(Name = "Ngày sinh")]
 			public DateOnly? DateOfBirth { get; set; }
 		}
 
@@ -88,7 +84,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
 			Input = new InputModel
 			{
 				FirstName = user.FirstName,
-				LastName = user.LastName,
+				//LastName = user.LastName,
 				DateOfBirth = user.DateOfBirth,
 				Gender = user.Gender,
 				PhoneNumber = phoneNumber
@@ -118,7 +114,9 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
-                return Page();
+				TempData["ToastType"] = "error";
+				TempData["ToastMessage"] = "Có lỗi, vui lòng thử lại!";
+				return Page();
             }
 
             //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -133,7 +131,6 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
             //}
             user.PhoneNumber = Input.PhoneNumber;
             user.FirstName = Input.FirstName;
-            user.LastName = Input.LastName;
 			if (Input.DateOfBirth.HasValue)
 			{
 				user.DateOfBirth = Input.DateOfBirth.Value;
@@ -144,7 +141,9 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account.Manage
 
 			await _signInManager.RefreshSignInAsync(user);
 
-            StatusMessage = "Your profile has been updated";
+			TempData["ToastType"] = "success";
+			TempData["ToastMessage"] = "Thông tin cá nhân đã được cập nhật!";
+
             return RedirectToPage();
         }
     }

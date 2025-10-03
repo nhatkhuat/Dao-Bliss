@@ -1,0 +1,94 @@
+﻿@page
+@model DaoBlissWebApp.Areas.Admin.Pages.Articles.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1 class="text-2xl font-bold mb-6">Tạo bài viết mới</h1>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-4">
+        <label for="Title" class="block text-sm font-medium text-gray-700">Tiêu đề</label>
+        <input asp-for="Article.Title" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required />
+        <span asp-validation-for="Article.Title" class="text-red-500 text-sm"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="Summary" class="block text-sm font-medium text-gray-700">Tóm tắt</label>
+        <textarea asp-for="Article.Summary" class="mt-1 block w-full border border-gray-300 rounded-md p-2" rows="4"></textarea>
+        <span asp-validation-for="Article.Summary" class="text-red-500 text-sm"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="ImageUrl" class="block text-sm font-medium text-gray-700">Hình ảnh chính (URL)</label>
+        <input asp-for="Article.ImageUrl" class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        <span asp-validation-for="Article.ImageUrl" class="text-red-500 text-sm"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="Content" class="block text-sm font-medium text-gray-700">Nội dung</label>
+        <textarea asp-for="Article.Content" id="editor" class="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
+        <span asp-validation-for="Article.Content" class="text-red-500 text-sm"></span>
+    </div>
+
+    <div class="mb-4">
+        <label for="Status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
+        <select asp-for="Article.Status" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            <option value="Draft">Nháp</option>
+            <option value="Published">Đã xuất bản</option>
+        </select>
+        <span asp-validation-for="Article.Status" class="text-red-500 text-sm"></span>
+    </div>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Lưu bài viết</button>
+</form>
+
+<div>
+    <a asp-page="Index">Quay lại danh sách</a>
+</div>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                    'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                    'undo', 'redo'
+                ],
+                image: {
+                    toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+                },
+                language: 'vi'
+            })
+            .then(editor => {
+                console.log('CKEditor initialized successfully');
+                // Đồng bộ CKEditor với ASP.NET form validation
+                editor.model.document.on('change:data', () => {
+                    const textarea = document.querySelector('#editor');
+                    textarea.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error('Error initializing CKEditor:', error);
+            });
+    });
+</script>
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.3/dist/tailwind.min.css" />
+<style>
+    .ck-editor__editable {
+        min-height: 300px;
+        border: 1px solid #d1d5db; /* border-gray-300 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 0.5rem; /* p-2 */
+    }
+</style>

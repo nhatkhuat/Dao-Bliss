@@ -7625,8 +7625,8 @@ textarea.form-control-lg {
   white-space: nowrap !important;
 }
 .text-primary {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+    --bs-text-opacity: 1;
+    color: rgb(22 101 52) !important;
 }
 
 .text-secondary {
@@ -7649,7 +7649,7 @@ textarea.form-control-lg {
   color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-danger {
+.text-red-500 text-sm {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
 }
@@ -7716,8 +7716,8 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+    --bs-bg-opacity: 1;
+    background-color: rgb(22 101 52) !important;
 }
 
 .bg-secondary {

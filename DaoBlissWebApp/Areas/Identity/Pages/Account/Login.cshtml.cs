@@ -76,7 +76,7 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
 			///     directly from your code. This API may change or be removed in future releases.
 			/// </summary>
-			[Required]
+			[Required(ErrorMessage = "Phải nhập {0}")]
 			[DataType(DataType.Password)]
 			public string Password { get; set; }
 
@@ -124,11 +124,11 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 					return Page();
 				}
 
-				if (!user.EmailConfirmed)
-				{
-					ModelState.AddModelError(string.Empty, "Tài khoản chưa được xác nhận email. Vui lòng kiểm tra email để xác nhận.");
-					return Page();
-				}
+				//if (!user.EmailConfirmed)
+				//{
+				//	ModelState.AddModelError(string.Empty, "Tài khoản chưa được xác nhận email. Vui lòng kiểm tra email để xác nhận.");
+				//	return Page();
+				//}
 
 				var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
 

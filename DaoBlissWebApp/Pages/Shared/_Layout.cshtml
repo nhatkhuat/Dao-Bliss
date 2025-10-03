@@ -1,75 +1,55 @@
 ﻿<!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DaoBlissWebApp</title>
+    <title>@ViewData["Title"]</title>
 
-    <link rel="icon" type="image/png" href="~/img/DaoBlissLogo.png"/>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="icon" type="image/png" href="~/img/DaoBlissLogo.png" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DaoBlissWebApp.styles.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/DaoBlissWebApp.styles.css" asp-append-version="true" />*@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>tailwind.config = { theme: { extend: { colors: { primary: '#57b5e7', secondary: '#8dd3c7' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    @*<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com">
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#198754',
+                        secondary: '#d4af37'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;family=Roboto&amp;display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <style>
-        a {
-            color: white !important;
-            text-decoration: none;
-        }
-
-        header {
-            background-image: url('/img/DaoblissBackground.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: top;
-        }
-
-        body {
-            /*            font-family: "Roboto", sans-serif;*/
-            background-color: #f9f8f0;
-            color: #1f3a2f;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: "Inter", sans-serif;
-        }
-        /*/* Custom scrollbar for slider arrows */
-        .slick-arrow {
-            background: transparent !important;
-            color: white !important;
-            font-size: 1.5rem;
-        }
-
-        footer {
-            background-image: url('/img/DaoblissBackground.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: bottom;
-        }
-
-        button[aria-label="Cart"],
-        button[aria-label="Search-Icon"] {
-            background: transparent;
-            border: none;
-            padding: 0;
-            margin: 0;
-            box-shadow: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .container {
             margin-left: 0 !important;
             margin-right: 0 !important;
@@ -78,15 +58,24 @@
             max-width: 100% !important;
         }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNHYMVNJCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FNHYMVNJCY');
+    </script>
 </head>
 <body>
-    <header class="bg-[url('/img/background.jpg')] bg-cover bg-no-repeat">
+    <header class="bg-[url('/img/DaoblissBackground.jpg')] bg-cover bg-no-repeat">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between py-4 border-b border-[#3f5a4f]">
+            <div class="flex items-center justify-between py-2 border-b border-[#3f5a4f]">
                 <!-- Logo -->
-                <div class="flex flex-col" href="HomePage.cshtml">
+                <div class="flex flex-col">
                     <!-- Hàng ngang gồm logo và DaoBliss -->
-                    <a href="/HomePage">
+                    <a href="/">
                         <div class="flex items-baseline space-x-2">
                             <img src="/img/DaoBlissLogo.png"
                                  alt="Logo"
@@ -106,9 +95,9 @@
                     </a>
                 </div>
                 <!-- Thanh tìm kiếm -->
-                <form class="relative flex-1 max-w-xl mx-6" role="search">
-                    <input class="w-full rounded-full border border-[#ddb25a] bg-[#f9f5f0] py-2 pr-10 pl-4 text-[#7a6a5a] placeholder-[#bba87a] focus:outline-none focus:ring-2 focus:ring-[#ddb25a] focus:border-[#ddb25a] text-sm"
-                           placeholder="Tìm kiếm sản phẩm, bài viết,..." type="search" />
+                <form asp-area="" asp-page="ProductList" method="get" class="relative flex-1 max-w-xl mx-6" role="search">
+                    <input name="ProductSearch" class="w-full rounded-full border border-[#ddb25a] bg-[#f9f5f0] py-2 pr-10 pl-4 text-[#7a6a5a] placeholder-[#bba87a] focus:outline-none focus:ring-2 focus:ring-[#ddb25a] focus:border-[#ddb25a] text-sm"
+                           placeholder="Tìm kiếm sản phẩm" type="search" />
 
                     <button type="submit"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-[#7a6a5a] hover:text-[#ddb25a]"
@@ -117,36 +106,32 @@
                     </button>
                 </form>
 
-
-                <!-- Nút giỏ hàng và Người dùng -->
                 <div class="flex items-center space-x-4">
-                    <button aria-label="Cart" class="text-[#f9f5f0] hover:text-[#ddb25a] text-xl" onclick="location.href='/cart'">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                    <button aria-label="User-Icon" class="bg-[#a06f1a] text-[#f9f5f0] rounded-full px-2 py-1 text-sm font-semibold flex gap-2 items-center justify-start">
-                        <img alt="Hình ảnh con mèo" class="w-6 h-6 object-cover rounded-full self-center" src="https://storage.googleapis.com/a1aa/image/5fb5e5b5-0bc8-4c28-acd5-381c4abfd4f2.jpg" />
-                        <a asp-page="Login" style="">
-                            <span>User</span>
-                        </a>
-                    </button>
+                    <div class="relative">
+                        <div class="w-8 h-8 flex items-center justify-center cursor-pointer user-menu-trigger">
+                            <i class="ri-user-line text-lg text-white hover:text-[#ddb25a]"></i>
+                        </div>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                    <div class="relative">
+                        <div class="w-8 h-8 flex items-center justify-center cursor-pointer cart-menu-trigger">
+                            <a asp-area="" asp-page="/Cart"><i class="ri-shopping-cart-line text-lg text-white hover:text-[#ddb25a]"></i></a>
+                            <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Menu -->
-        <nav>
+            <!-- Menu -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <ul class="flex justify-center space-x-10 text-[#f9f5f0] text-base font-normal py-3">
-                    <li><a href="HomePage" class="hover:text-[#ddb25a]">Trang chủ</a></li>
-                    <li><a href="ProductList" class="hover:text-[#ddb25a]">Mua sắm</a></li>
-                    <li><a href="Blogs" class="hover:text-[#ddb25a]">Blog</a></li>
-                    <li><a href="AboutUs" class="hover:text-[#ddb25a]">Về chúng tôi</a></li>
-                    @*<li><a href="#" class="hover:text-[#ddb25a]">Liên hệ</a></li>*@
+                    <li><a asp-page="/Index" class="text-white hover:text-[#ddb25a]">Trang chủ</a></li>
+                    <li><a asp-page="/ProductList" class="text-white hover:text-[#ddb25a]">Mua sắm</a></li>
+                    <li><a asp-page="/Blogs" class="text-white hover:text-[#ddb25a]">Blog</a></li>
+                    <li><a asp-page="/AboutUs" class="text-white hover:text-[#ddb25a]">Về chúng tôi</a></li>
                 </ul>
             </div>
-        </nav>
+        </div>
     </header>
-
     <!-- Phần chính -->
     <div class="container">
         <main role="main" class="pb-0">
@@ -155,106 +140,52 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-[url('/img/background.jpg')] bg-cover bg-no-repeat">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-4 gap-8">
-            <div class="space-y-2">
-                <div class="flex flex-col">
-                    <!-- Hàng ngang gồm logo và DaoBliss -->
+    <footer class="bg-[url('/img/background.jpg')] bg-cover bg-no-repeat bg-bottom">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 sm:grid-cols-4 gap-6 sm:gap-8">
+            <div class="space-y-3 sm:space-y-4">
+                <div class="flex flex-col items-center sm:items-start">
                     <div class="flex items-baseline space-x-2">
-                        <img src="/img/DaoBlissLogo.png"
-                             alt="Logo"
-                             class="h-10 w-auto align-baseline" />
-
-                        <span class="text-white text-[36px] font-playfair leading-none align-baseline"
-                              style="font-family: 'Garlic Salt Regular'">
-                            DaoBliss
-                        </span>
+                        <img src="/img/DaoBlissLogo.png" alt="DaoBliss Logo" class="h-8 sm:h-10 w-auto" />
+                        <span class="text-white text-2xl sm:text-4xl font-playfair leading-none" style="font-family: 'Garlic Salt Regular'">DaoBliss</span>
                     </div>
-
-
-                    <!-- Slogan phía dưới -->
-                    <p class="text-white text-[15.5px] font-serif leading-tight mt-0" style="font-family: StenciliqoExtruded4F ☞">
-                        Gìn giữ tinh túy núi rừng
-                    </p>
+                    <p class="text-white text-sm sm:text-base font-serif leading-tight mt-2 text-center sm:text-left" style="font-family: 'StenciliqoExtruded4F ☞'">Gìn giữ tinh túy núi rừng</p>
                 </div>
-                <div class="flex space-x-4 text-gray-400 text-sm mt-3">
-                    <a aria-label="Facebook" class="hover:text-[#daa520]" href="#">
-                        <i class="fab fa-facebook-f">
-                        </i>
-                    </a>
-                    <a aria-label="LinkedIn" class="hover:text-[#daa520]" href="#">
-                        <i class="fab fa-linkedin-in">
-                        </i>
-                    </a>
-                    <a aria-label="YouTube" class="hover:text-[#daa520]" href="#">
-                        <i class="fab fa-youtube">
-                        </i>
-                    </a>
-                    <a aria-label="Instagram" class="hover:text-[#daa520]" href="#">
-                        <i class="fab fa-instagram">
-                        </i>
-                    </a>
+                <div class="flex justify-center sm:justify-start space-x-4 text-sm mt-3">
+                    <a aria-label="Facebook" class="text-white hover:text-[#ddb25a] p-2" href="https://www.facebook.com/share/1BbgTsJXZZ/?mibextid=wwXIfr"><i class="fab fa-facebook-f text-lg"></i></a>
+                    @*<a aria-label="LinkedIn" class="text-white hover:text-[#ddb25a] p-2" href="#"><i class="fab fa-linkedin-in text-lg"></i></a>
+                        <a aria-label="YouTube" class="text-white hover:text-[#ddb25a] p-2" href="#"><i class="fab fa-youtube text-lg"></i></a>
+                        <a aria-label="Instagram" class="text-white hover:text-[#ddb25a] p-2" href="#"><i class="fab fa-instagram text-lg"></i></a>*@
                 </div>
             </div>
             <div>
-                <h3 class="text-[#ddb25a] font-semibold mb-3">
-                    Trang
-                </h3>
-                <ul class="space-y-2 text-white">
-                    <li>
-                        <a class="hover:text-[#ddb25a] focus:text-[#ddb25a] focus:outline-none" href="/HomePage">
-                            Trang chủ
-                        </a>
-                    </li>
-                    <li>
-                        <a class="hover:text-[#ddb25a] focus:text-[#ddb25a] focus:outline-none" href="/AboutUs">
-                            Về chúng tôi
-                        </a>
-                    </li>
-                    <li>
-                        <a class="hover:text-[#ddb25a] focus:text-[#ddb25a] focus:outline-none" href="/ProductList">
-                            Mua sắm
-                        </a>
-                    </li>
+                <h3 class="text-[#ddb25a] font-semibold text-base sm:text-lg mb-2 sm:mb-3 text-center sm:text-left">Trang</h3>
+                <ul class="space-y-2 text-white text-center sm:text-left">
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="/">Trang chủ</a></li>
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="/AboutUs">Về chúng tôi</a></li>
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="/ProductList">Mua sắm</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-[#ddb25a] font-semibold mb-3">
-                    Cửa hàng của chúng tôi
-                </h3>
-                <ul class="space-y-2 text-white">
-                    <li>
-                        Chính sách bảo mật
-                    </li>
-                    <li>
-                        Điều khoản và Điều kiện
-                    </li>
-                    <li>
-                        Trung tâm hỗ trợ
-                    </li>
+                <h3 class="text-[#ddb25a] font-semibold text-base sm:text-lg mb-2 sm:mb-3 text-center sm:text-left">Cửa hàng của chúng tôi</h3>
+                <ul class="space-y-2 text-white text-center sm:text-left">
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="#">Chính sách bảo mật</a></li>
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="#">Điều khoản và Điều kiện</a></li>
+                    <li><a class="hover:text-[#ddb25a] text-sm sm:text-base" href="#">Trung tâm hỗ trợ</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-[#ddb25a] font-semibold mb-3">
-                    Liên hệ
-                </h3>
-                <address class="not-italic space-y-2 text-white">
-                    <p>
-                        Số 5, đường Cầu Giấy, Quan Hoa, Hà Nội
-                    </p>
-                    <p>
-                        daobliss@gmail.com
-                    </p>
-                    <p>
-                        034 356 4378
-                    </p>
+                <h3 class="text-[#ddb25a] font-semibold text-base sm:text-lg mb-2 sm:mb-3 text-center sm:text-left">Liên hệ</h3>
+                <address class="not-italic space-y-2 text-white text-sm sm:text-base text-center sm:text-left">
+                    <p>Đại học FPT, Thạch Thất, Hà Nội</p>
+                    <p>daobliss.official@gmail.com</p>
+                    <p>033 273 3805</p>
                 </address>
             </div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
 
@@ -263,7 +194,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     @Html.AntiForgeryToken()
     <script>
-        (function () {
+            (function () {
     // Load CSS
     let link = document.createElement("link");
     link.rel = "stylesheet";
@@ -289,8 +220,123 @@
             document.body.appendChild(script);
         })
         .catch(err => console.error(err));
-        })();
+            })();
     </script>
+    <script id="dropdown-menu">
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+
+            const menus = [
+                { trigger: '.user-menu-trigger', menu: '.user-menu' }
+            ];
+
+            menus.forEach(({ trigger, menu }) => {
+                const triggerEl = document.querySelector(trigger);
+                const menuEl = document.querySelector(menu);
+                let isOpen = false;
+
+                triggerEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    isOpen = !isOpen;
+                    menuEl.classList.toggle('hidden', !isOpen);
+
+                    // Close other menus
+                    menus.forEach(({ menu: otherMenu }) => {
+                        if (otherMenu !== menu) {
+                            document.querySelector(otherMenu).classList.add('hidden');
+                        }
+                    });
+                });
+
+                menuEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            });
+
+            document.addEventListener('click', () => {
+                menus.forEach(({ menu }) => {
+                    document.querySelector(menu).classList.add('hidden');
+                });
+            });
+            var toastType = '@TempData["ToastType"]';
+            var toastMessage = '@TempData["ToastMessage"]';
+
+            if (toastMessage) {
+                showNotification(toastMessage, toastType);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToCartBtn = document.getElementById('add-to-cart');
+            const cartCount = document.querySelector('.cart-count');
+            const qtyInput = document.getElementById('quantity');
+
+            function updateCartCount(cart) {
+                const total = cart.reduce((sum, i) => sum + i.quantity, 0);
+                cartCount.textContent = total;
+            }
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function () {
+                    const productId = this.dataset.productId;
+                    const variantId = this.dataset.variantId;
+
+                    const addQuantity = parseInt(qtyInput?.value, 10) || 1;
+
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existing = cart.find(i => String(i.variantId) === String(variantId));
+                    const currentQty = existing ? Number(existing.quantity) : 0;
+                    const nextQty = currentQty + addQuantity;
+
+                    if (nextQty > 5) {
+                        alert("Nếu bạn muốn mua hàng với số lượng lớn, xin vui lòng liên hệ hotline: 034 356 4378. Có mức chiết khấu thành cơ bản!");
+                        return;
+                    }
+
+                    if (existing) {
+                        existing.quantity = nextQty;
+                    } else {
+                        cart.push({
+                            productId: productId,
+                            variantId: variantId,
+                            quantity: addQuantity
+                        });
+                    }
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount(cart);
+                    showNotification(`Đã thêm ${addQuantity} sản phẩm vào giỏ hàng!`, "success");
+                });
+            }
+
+            // Cập nhật số giỏ khi load trang
+            updateCartCount(JSON.parse(localStorage.getItem('cart')) || []);
+        });
+    </script>
+    <script>
+        function showNotification(msg, type) {
+            const Toast = Swal.mixin({
+                toast: true,              // kiểu toast
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer
+                    toast.onmouseleave = Swal.resumeTimer
+                }
+            });
+
+            Toast.fire({
+                icon: type, // 'success', 'error', 'info', 'warning'
+                title: msg
+            });
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

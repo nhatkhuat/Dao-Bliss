@@ -41,6 +41,9 @@ namespace DaoBlissWebApp.Common.Entities
 		[Required, MaxLength(100)]
 		public string ShippingWard { get; set; }
 
+		[Required, MaxLength(200)]
+		public string ShippingEmail { get; set; }
+
 		// Financial Information
 		[Required]
 		[Column(TypeName = "decimal(18,2)")]
@@ -57,15 +60,14 @@ namespace DaoBlissWebApp.Common.Entities
 		public decimal Total { get; set; }
 
 		[MaxLength(1000)]
-		public string Notes { get; set; }
+		public string? Notes { get; set; }
 
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-		public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
+		public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
 		// Navigation Properties
 		[ForeignKey("UserId")]
-		public ApplicationUser User { get; set; }
+		public ApplicationUser? User { get; set; }
 		public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
-		public ICollection<ProductReview> Reviews { get; set; } = new List<ProductReview>();
 	}
 }

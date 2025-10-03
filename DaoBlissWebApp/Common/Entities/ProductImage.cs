@@ -15,11 +15,10 @@ namespace DaoBlissWebApp.Common.Entities
 		public string ImageUrl { get; set; }
 
 		[MaxLength(200)]
-		public string AltText { get; set; }
-		public int SortOrder { get; set; } = 0;
-		public bool IsMain { get; set; } = false;
+		public string? AltText { get; set; }
+		public bool? IsMain { get; set; } = false;
 
 		[ForeignKey("ProductId")]
-		public Product Product { get; set; }
+		public Product? Product { get; set; }
 	}
 }

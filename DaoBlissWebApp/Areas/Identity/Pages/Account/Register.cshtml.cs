@@ -75,8 +75,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email là bắt buộc")]
+            [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -84,8 +84,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Mật khẩu là bắt buộc")]
+            [StringLength(100, ErrorMessage = "Mật khẩu phải dài ít nhất {2} ký tự", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Mật khẩu")]
             public string Password { get; set; }
@@ -95,15 +95,25 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Xác nhân mật khẩu")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Xác nhận mật khẩu")]
+            [Compare("Password", ErrorMessage = "Mật khẩu không khớp.")]
             public string ConfirmPassword { get; set; }
 
-			[DataType(DataType.Text)]
-			[Display(Name = "Tài khoản")]
-			[Required(ErrorMessage = "{0} is required")]
-			[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-			public string UserName { get; set; }
+			//[DataType(DataType.Text)]
+			//[Display(Name = "Tài khoản")]
+			//[Required(ErrorMessage = "{0} is required")]
+			//[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+			//public string UserName { get; set; }
+
+			[Required(ErrorMessage = "Số điện thoại là bắt buộc")]
+			[Phone(ErrorMessage = "Sai định dạng số điện thoại")]
+			[Display(Name = "Số điện thoại")]
+			public string PhoneNumber { get; set; }
+
+			[Required(ErrorMessage = "Họ và tên là bắt buộc")]
+			[StringLength(50)]
+			[Display(Name = "Họ và tên")]
+			public string FirstName { get; set; }
 		}
 
 
@@ -121,8 +131,12 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+				user.FirstName = Input.FirstName;
+				user.PhoneNumber = Input.PhoneNumber;
+
+				//await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+				await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -138,9 +152,6 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
