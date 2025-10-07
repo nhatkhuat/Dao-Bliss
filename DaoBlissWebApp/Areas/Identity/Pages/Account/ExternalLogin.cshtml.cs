@@ -101,13 +101,17 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
+				TempData["ToastType"] = "error";
+				TempData["ToastMessage"] = $"Error from external provider: {remoteError}";
+				//ErrorMessage = $"Error from external provider: {remoteError}";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Đăng nhập thất bại: Vui lòng cấp quyền truy cập để sử dụng Google.";
+				TempData["ToastType"] = "error";
+				TempData["ToastMessage"] = "Đăng nhập thất bại: Vui lòng cấp quyền truy cập để sử dụng Google.";
+				//ErrorMessage = "Đăng nhập thất bại: Vui lòng cấp quyền truy cập để sử dụng Google.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -115,7 +119,9 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+				TempData["ToastType"] = "success";
+				TempData["ToastMessage"] = "Đăng nhập thành công";
+				//_logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -147,7 +153,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 							//await _userManager.ConfirmEmailAsync(user, code);
 						}
 					}
-
+					TempData["ToastType"] = "success";
+					TempData["ToastMessage"] = "Đăng nhập thành công";
 					// Đăng nhập
 					await _signInManager.SignInAsync(user, isPersistent: false);
 					return LocalRedirect(returnUrl);

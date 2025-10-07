@@ -1,0 +1,141 @@
+﻿@page "/chinh-sach"
+@model DaoBlissWebApp.Pages.PolicyModel
+@{
+
+}
+
+@if (Model.Title.Equals("mua-hang"))
+{
+    <div id="policy-detail" class="px-4 py-12 bg-yellow-50">
+        <div class="max-w-4xl mx-auto">
+
+            <article>
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Chính sách mua hàng và thanh toán</h1>
+
+                <div id="policy-content" class="prose prose-lg max-w-none">
+                    <h2><strong>1. Hướng dẫn mua hàng</strong></h2>
+                    <p>Quý khách có thể mua hàng trực tiếp bằng 3 cách:</p>
+                    <ul>
+                        <li>Gọi điện thoại đến <strong>033 273 3805</strong></li>
+                        <li>Truy cập website <a href="https://daobliss.id.vn">https://daobliss.id.vn</a></li>
+                        <li>Facebook Page: <a href="https://www.facebook.com/profile.php?id=61580431264968" class="text-primary font-semibold">DaoBliss - Gìn giữ tinh túy núi rừng</a></li>
+                    </ul>
+                    <br />
+                    <h3><strong>Mua hàng tại website daobliss.id.vn:</strong></h3>
+                    <ol>
+                        <li><strong>Bước 1:</strong> Truy cập website, tìm hiểu sản phẩm cần mua tại mục <strong>SẢN PHẨM</strong> hoặc <strong>KHUYẾN MÃI</strong>.</li>
+                        <li><strong>Bước 2:</strong> Chọn sản phẩm, số lượng cần mua và click “Bỏ vào giỏ hàng” hoặc “Mua ngay”.</li>
+                        <li><strong>Bước 3:</strong> Kiểm tra giỏ hàng và chọn phương thức thanh toán phù hợp.</li>
+                        <li><strong>Bước 4:</strong> Điền đầy đủ thông tin và nhấn “XÁC NHẬN ĐẶT HÀNG”.</li>
+                        <li><strong>Bước 5:</strong> Nhân viên Daobliss sẽ liên hệ xác nhận đơn hàng.</li>
+                    </ol>
+                    <br />
+                    <h2><strong>2. Vận chuyển - Thanh toán</strong></h2>
+                    <h3><strong>Quy trình giao nhận vận chuyển</strong></h3>
+                    <p>
+                        Sau khi xác nhận đơn hàng, Daobliss sẽ đóng gói và giao cho đơn vị vận chuyển trong vòng 24h.
+                        <br>Tại nội thành Hà Nội: giao trong vòng <strong>48h làm việc</strong>.
+                        <br>Tại các địa chỉ khác: giao qua đơn vị vận chuyển chuyên nghiệp trong <strong>2–5 ngày làm việc</strong>.
+                    </p>
+                    <br />
+                    <h3><strong>Chính sách vận chuyển</strong></h3>
+                    <ul>
+                        <li>Tại Hòa Lạc, Thạch Thất, Hà Nội: miễn phí vận chuyển</li>
+                        <li>Các quận Hà Nội: 20.000đ/đơn</li>
+                        <li>Các địa chỉ khác: 25.000đ/đơn</li>
+                        <li><strong>Đơn hàng ship gấp:</strong> thanh toán phí theo biểu giá của đơn vị vận chuyển (Grab, GHTK)</li>
+                    </ul>
+                    <br />
+                    <h3><strong>Hình thức thanh toán</strong></h3>
+                    <ul>
+                        <li>Tại Trường Đại học FPT Hà Nội: thanh toán tiền mặt hoặc thẻ Visa, Master, ATM</li>
+                        <li>Đơn hàng vận chuyển: chuyển khoản, thanh toán trực tuyến, hoặc COD khi nhận hàng.</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </div>
+}
+else
+{
+    <div id="policy-return" class="px-4 py-12 bg-yellow-50">
+        <div class="max-w-4xl mx-auto">
+
+            <article>
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Chính sách đổi trả và hoàn tiền</h1>
+
+                <div id="return-content" class="prose prose-lg max-w-none text-gray-800">
+                    <p>
+                        <em>Quý khách vui lòng kiểm tra hàng ngay sau khi nhận được, đảm bảo sản phẩm đúng số lượng, chủng loại, mẫu mã và chất lượng như yêu cầu.</em>
+                        Nếu có sai sót hoặc phát sinh ngoài ý muốn, vui lòng thông báo cho <strong>Daobliss</strong> trong vòng <strong>24h</strong> kể từ khi nhận hàng, kèm theo ảnh chụp gói hàng và toàn bộ sản phẩm nhận được.
+                        <strong>Daobliss</strong> sẽ tiếp nhận và điều chỉnh đơn hàng cho quý khách trong vòng <strong>48h</strong> kể từ khi nhận được yêu cầu.
+                    </p>
+                    <br />
+                    <h2><strong>1. Đổi trả do lỗi sai đơn hoặc lỗi vận chuyển</strong></h2>
+                    <p>
+                        Để đảm bảo chất lượng dịch vụ và đem lại trải nghiệm tốt nhất, <strong>Daobliss</strong> áp dụng chính sách đổi hàng với các trường hợp sau:
+                    </p>
+                    <ul>
+                        <li>Nhầm sản phẩm, thiếu hoặc thừa sản phẩm so với đơn hàng đã xác nhận</li>
+                        <li>Sản phẩm bị móp, vỡ, gãy hỏng do vận chuyển</li>
+                        <li>Sản phẩm có lỗi kỹ thuật phát hiện khi sử dụng</li>
+                    </ul>
+                    <br />
+                    <p>Trong 3 trường hợp trên, <strong>Daobliss</strong> đổi hàng cho quý khách theo trình tự sau:</p>
+                    <ol>
+                        <li><strong>Bước 1:</strong> Thông báo cho Daobliss trong vòng 24h kể từ khi nhận hàng, kèm ảnh chụp gói hàng và toàn bộ sản phẩm nhận được.</li>
+                        <li><strong>Bước 2:</strong> Daobliss gửi mặt hàng thiếu/lỗi, hỏng đúng số lượng và chủng loại cho quý khách trong vòng 5 ngày.</li>
+                        <li><strong>Bước 3:</strong> Quý khách gửi lại mặt hàng thừa/lỗi, hỏng về địa chỉ: <em>Đại học FPT, Thạch Thất, Hà Nội.</em></li>
+                        <li><strong>Bước 4:</strong> Nếu có phát sinh chênh lệch, Daobliss chuyển khoản hoặc thu/hoàn phần chênh lệch khi giao hàng.</li>
+                    </ol>
+
+                    <p><strong>Phí vận chuyển đổi trả:</strong> Với sản phẩm đổi do 3 lý do trên, quý khách <em>không phải trả phí vận chuyển</em>, toàn bộ chi phí do Daobliss thanh toán trực tiếp với đơn vị vận chuyển.</p>
+                    <br />
+                    <h2><strong>2. Đổi trả sản phẩm theo mong muốn riêng của khách hàng</strong></h2>
+                    <p>
+                        Với mong muốn khách hàng có trải nghiệm hài lòng nhất, <strong>Daobliss</strong> chấp nhận đổi trả trong vòng <strong>5 ngày</strong> kể từ khi nhận hàng.
+                    </p>
+                    <br />
+                    <h3><strong>Điều kiện đổi trả:</strong></h3>
+                    <ul>
+                        <li>Sản phẩm chưa qua sử dụng, còn nguyên bao bì, đầy đủ phụ kiện.</li>
+                        <li>Bao bì không bị bẩn, méo vỡ, có mùi lạ hoặc dấu hiệu bảo quản sai hướng dẫn.</li>
+                        <li>Còn hóa đơn mua hàng.</li>
+                    </ul>
+                    <br />
+                    <h3>Lưu ý:</h3>
+                    <ul>
+                        <li>Sản phẩm chỉ được đổi 1 lần.</li>
+                        <li>Khách hàng thanh toán phí vận chuyển 2 chiều khi đổi trả theo mong muốn cá nhân.</li>
+                        <li>Nếu có chênh lệch, <strong>Daobliss</strong> sẽ chuyển khoản hoặc thu phần chênh lệch khi giao hàng đổi.</li>
+                    </ul>
+                    <br />
+                    <h2><strong>3. Hoàn trả sản phẩm</strong></h2>
+                    <p>
+                        Trong trường hợp khách hàng gặp phản ứng không mong muốn khi sử dụng sản phẩm, vui lòng cung cấp hình ảnh hoặc giấy khám sức khỏe từ cơ sở y tế để <strong>Daobliss</strong> xác nhận.
+                    </p>
+                    <br />
+                    <h3><strong>Cách thức hoàn trả:</strong></h3>
+                    <ol>
+                        <li><strong>Bước 1:</strong> Gửi hàng về cho Daobliss theo quy định.</li>
+                        <li>
+                            <strong>Bước 2:</strong> Cung cấp số tài khoản qua inbox tại
+                            <a href="https://www.facebook.com/messages/t/804897146035555" class="text-primary underline">https://www.facebook.com/messages/t/804897146035555</a>.
+                        </li>
+                        <li><strong>Bước 3:</strong> Daobliss hoàn tiền qua chuyển khoản trong vòng <strong>5 ngày làm việc</strong> (không bao gồm ngày nghỉ, lễ tết).</li>
+                    </ol>
+                    <br />
+                    <h3><strong>Gửi hàng về Daobliss:</strong></h3>
+                    <p>
+                        Khi gửi hàng đổi/trả/bảo hành, vui lòng đóng gói cẩn thận để đảm bảo sản phẩm nguyên vẹn.
+                        Sản phẩm hư hại do đóng gói sơ sài sẽ bị từ chối nhận.
+                    </p>
+                    <p>
+                        <strong>Địa chỉ nhận hàng đổi trả:</strong>
+                        <em>Đại học FPT, Thạch Thất, Hà Nội.</em>
+                    </p>
+                </div>
+            </article>
+        </div>
+    </div>
+}

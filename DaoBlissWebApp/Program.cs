@@ -95,7 +95,7 @@ namespace DaoBlissWebApp
 			// Configure antiforgery cookies
 			builder.Services.AddAntiforgery(options =>
 			{
-				options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Enforce Secure for antiforgery cookies
+				options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Enforce Secure for antiforgery cookies
 				options.Cookie.SameSite = SameSiteMode.Strict;
 				options.Cookie.HttpOnly = true;
 			});
