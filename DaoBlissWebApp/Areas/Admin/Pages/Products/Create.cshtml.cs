@@ -13,35 +13,35 @@ namespace DaoBlissWebApp.Areas.Admin.Pages.Products
 {
 	[Authorize(Roles = "Admin")]
 	public class CreateModel : PageModel
-    {
-        private readonly DaoBlissWebApp.Data.ApplicationDbContext _context;
+	{
+		private readonly ApplicationDbContext _context;
 
-        public CreateModel(DaoBlissWebApp.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public CreateModel(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
-        public IActionResult OnGet()
-        {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            return Page();
-        }
+		public IActionResult OnGet()
+		{
+			ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+			return Page();
+		}
 
-        [BindProperty]
-        public Product Product { get; set; } = default!;
+		[BindProperty]
+		public Product Product { get; set; } = default!;
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                Console.WriteLine(Product);
-                return Page();
-            }
+		public async Task<IActionResult> OnPostAsync()
+		{
+			if (!ModelState.IsValid)
+			{
+				Console.WriteLine(Product);
+				return Page();
+			}
 
-            _context.Products.Add(Product);
-            await _context.SaveChangesAsync();
+			_context.Products.Add(Product);
+			await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
-        }
-    }
+			return RedirectToPage("./Index");
+		}
+	}
 }

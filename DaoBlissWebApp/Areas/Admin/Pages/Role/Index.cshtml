@@ -6,29 +6,31 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<partial name="_StatusMessage" model="@Model.StatusMessage"/>
-
-<div class="mb-2">
-    <a class="btn btn-secondary" asp-page="./Create">Create new role</a>
-    <a class="btn btn-secondary" asp-page="../User/Index">Manage users</a>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+<div class="mb-2 space-x-2">
+    <a asp-page="./Create" class="bg-gray-300 px-3 py-1 rounded">Create new role</a>
+    <a asp-page="../User/Index" class="bg-gray-300 px-3 py-1 rounded">Manage users</a>
 </div>
 
-
-<table class="table"> 
-    <tr>
-        <th>Role Name</th>
-        <th>Action</th>
+<table class="w-full border border-gray-300 border-collapse">
+    <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-2 py-1 text-left">Role Name</th>
+        <th class="border border-gray-300 px-2 py-1 text-left">Action</th>
     </tr>
-    @foreach(var role in Model.Roles)
-            {
-                <tr>
-                    <td>@role.Name</td>
-                    <td>
-                        <input name="RoleStatus" type="radio" value="true" class="alert-success"/>
-                        <span class="text-success">Active</span>
-                        <input name="RoleStatus" type="radio" value="false" />
-                        <span class="text-red-500 text-sm">Inactive</span>
-                    </td>
-                </tr>
-            }
+    @foreach (var role in Model.Roles)
+    {
+        <tr>
+            <td class="border border-gray-300 px-2 py-1">@role.Name</td>
+            <td class="border border-gray-300 px-2 py-1">
+                <label class="mr-4">
+                    <input name="RoleStatus-@role.Name" type="radio" value="true" />
+                    <span class="text-green-600">Active</span>
+                </label>
+                <label>
+                    <input name="RoleStatus-@role.Name" type="radio" value="false" />
+                    <span class="text-red-500">Inactive</span>
+                </label>
+            </td>
+        </tr>
+    }
 </table>

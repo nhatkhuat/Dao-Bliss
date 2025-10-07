@@ -120,7 +120,9 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 
 				if (user == null)
 				{
-					ModelState.AddModelError(string.Empty, "Tài khoản không tồn tại.");
+					TempData["ToastType"] = "error";
+					TempData["ToastMessage"] = "Tài khoản không tồn tại.";
+					//ModelState.AddModelError(string.Empty, "");
 					return Page();
 				}
 
@@ -135,6 +137,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 				if (result.Succeeded)
 				{
 					// ng dung nhap username
+					TempData["ToastType"] = "success";
+					TempData["ToastMessage"] = "Đăng nhập thành công";
 					return LocalRedirect(returnUrl);
 				}
 				if (result.RequiresTwoFactor)
@@ -148,7 +152,8 @@ namespace DaoBlissWebApp.Areas.Identity.Pages.Account
 				}
 				else
 				{
-					ModelState.AddModelError(string.Empty, "Thất bại, sai mật khẩu");
+					TempData["ToastType"] = "error";
+					TempData["ToastMessage"] = "Thất bại, sai mật khẩu";
 					return Page();
 				}
 			}
